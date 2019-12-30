@@ -180,10 +180,6 @@
 			"overwolf-replay-converter": {
 				"file": "Files/plugins/HearthstoneReplays.dll",
 				"class": "HearthstoneReplays.ReplayConverterPlugin"
-			},
-			"mind-vision": {
-				"file": "Files/plugins/Overwolf.UnitySpy.Wrapper.dll",
-				"class": "Overwolf.UnitySpy.Wrapper.MindVisionPlugin"
 			}
 		},
 		"hotkeys": {

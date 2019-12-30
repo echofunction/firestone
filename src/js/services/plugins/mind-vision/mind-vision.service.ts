@@ -8,10 +8,11 @@ export class MindVisionService {
 	initialized = false;
 
 	constructor() {
-		this.initialize();
+		// this.initialize();
 	}
 
 	public async getCollection(): Promise<any[]> {
+		return null;
 		return new Promise<any[]>(async (resolve, reject) => {
 			console.log('[mind-vision] retrieving collection');
 			const plugin = await this.get();
@@ -28,6 +29,7 @@ export class MindVisionService {
 	}
 
 	public async getMatchInfo(): Promise<any> {
+		return null;
 		return new Promise<any[]>(async resolve => {
 			console.log('[mind-vision] retrieving matchInfo');
 			const plugin = await this.get();
@@ -43,6 +45,7 @@ export class MindVisionService {
 	}
 
 	public async getBattlegroundsInfo(): Promise<{ Rating: number; PreviousRating: number }> {
+		return null;
 		return new Promise<{ Rating: number; PreviousRating: number }>(async resolve => {
 			// console.log('[mind-vision] retrieving getBattlegroundsInfo');
 			const plugin = await this.get();
@@ -59,6 +62,7 @@ export class MindVisionService {
 	}
 
 	public async getActiveDeck(): Promise<any> {
+		return null;
 		return new Promise<any[]>(async resolve => {
 			console.log('[mind-vision] retrieving activeDeck');
 			const plugin = await this.get();
@@ -75,11 +79,13 @@ export class MindVisionService {
 	}
 
 	public async get() {
+		return null;
 		await this.waitForInit();
 		return this.mindVisionPlugin.get();
 	}
 
 	private initialize() {
+		return;
 		this.initialized = false;
 		try {
 			console.log('[mind-vision] plugin init starting', this.mindVisionPlugin);
@@ -103,6 +109,7 @@ export class MindVisionService {
 	}
 
 	private waitForInit(): Promise<void> {
+		return;
 		return new Promise<void>(resolve => {
 			const dbWait = () => {
 				if (this.initialized) {
