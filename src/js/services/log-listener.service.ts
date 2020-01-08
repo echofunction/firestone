@@ -91,58 +91,85 @@ export class LogListenerService {
 	async listenOnFileUpdate(logsLocation: string) {
 		const fileIdentifier = this.logFile;
 		console.log('[log-listener] [' + this.logFile + '] listening on file update', logsLocation);
-
-		try {
-			// Register file listener
-			const handler = (id: string, status: boolean, isOldLine: boolean, data: string) => {
-				// console.log('processing', id, status, isNewLine, data);
-				if (!status) {
-					if (data === 'truncated') {
-						console.log(
-							'[log-listener] [' +
-								this.logFile +
-								'] truncated log file - HS probably just overwrote the file. Going on',
-						);
-					} else if (id === fileIdentifier) {
-						console.warn('[log-listener] [' + this.logFile + '] received an error on file: ', id, data);
-					}
-					return;
+		const skipToEnd = this.fileInitiallyPresent && !this.existingLineHandler;
+		let lastLineIsOldLine = false;
+		this.ow.listenOnFile(fileIdentifier, logsLocation, { skipToEnd: skipToEnd }, result => {
+			if (!result.success) {
+				console.warn('[log-listener] [' + this.logFile + '] received an error on file: ', result.error);
+				return;
+			}
+			if (result.state === 'truncated') {
+				console.log(
+					'[log-listener] [' +
+						this.logFile +
+						'] truncated log file - HS probably just overwrote the file. Going on',
+				);
+			}
+			if (!result.info.isNew) {
+				if (this.existingLineHandler) {
+					lastLineIsOldLine = true;
+					this.existingLineHandler(result.content);
 				}
-
-				if (id === fileIdentifier) {
-					if (isOldLine) {
-						if (this.existingLineHandler) {
-							this.existingLineHandler(data);
-						}
-					} else {
-						this.callback(data);
-					}
-				} else {
-					// This happens frequently when listening to several files at the same time, don't do anything about it
+			} else {
+				if (lastLineIsOldLine && this.existingLineHandler) {
+					this.existingLineHandler('end_of_existing_data');
+					lastLineIsOldLine = false;
 				}
-			};
-			const plugin = await this.io.get();
-			plugin.onFileListenerChanged.addListener(handler);
+				this.callback(result.content);
+			}
+		});
 
-			const skipToEnd = this.fileInitiallyPresent && !this.existingLineHandler;
-			console.log('[log-listener] [' + this.logFile + '] skipping to the end?', skipToEnd);
-			plugin.listenOnFile(
-				fileIdentifier,
-				logsLocation,
-				skipToEnd,
-				(id: string, status: boolean, initData: any) => {
-					if (id === fileIdentifier) {
-						if (status) {
-							console.log('[' + id + '] now streaming...', this.fileInitiallyPresent, initData);
-							this.subject.next(Events.STREAMING_LOG_FILE);
-						} else {
-							console.error('[log-listener] [' + this.logFile + '] something bad happened with: ', id);
-						}
-					}
-				},
-			);
-		} catch (e) {
-			console.error('Exception while listener on logs', fileIdentifier, e);
-		}
+		// try {
+		// 	// Register file listener
+		// 	const handler = (id: string, status: boolean, isOldLine: boolean, data: string) => {
+		// 		// console.log('processing', id, status, isNewLine, data);
+		// 		if (!status) {
+		// 			if (data === 'truncated') {
+		// 				console.log(
+		// 					'[log-listener] [' +
+		// 						this.logFile +
+		// 						'] truncated log file - HS probably just overwrote the file. Going on',
+		// 				);
+		// 			} else if (id === fileIdentifier) {
+		// 				console.warn('[log-listener] [' + this.logFile + '] received an error on file: ', id, data);
+		// 			}
+		// 			return;
+		// 		}
+
+		// 		if (id === fileIdentifier) {
+		// 			if (isOldLine) {
+		// 				if (this.existingLineHandler) {
+		// 					this.existingLineHandler(data);
+		// 				}
+		// 			} else {
+		// 				this.callback(data);
+		// 			}
+		// 		} else {
+		// 			// This happens frequently when listening to several files at the same time, don't do anything about it
+		// 		}
+		// 	};
+
+		// 	const plugin = await this.io.get();
+		// 	plugin.onFileListenerChanged.addListener(handler);
+
+		// 	console.log('[log-listener] [' + this.logFile + '] skipping to the end?', skipToEnd);
+		// 	plugin.listenOnFile(
+		// 		fileIdentifier,
+		// 		logsLocation,
+		// 		skipToEnd,
+		// 		(id: string, status: boolean, initData: any) => {
+		// 			if (id === fileIdentifier) {
+		// 				if (status) {
+		// 					console.log('[' + id + '] now streaming...', this.fileInitiallyPresent, initData);
+		// 					this.subject.next(Events.STREAMING_LOG_FILE);
+		// 				} else {
+		// 					console.error('[log-listener] [' + this.logFile + '] something bad happened with: ', id);
+		// 				}
+		// 			}
+		// 		},
+		// 	);
+		// } catch (e) {
+		// 	console.error('Exception while listener on logs', fileIdentifier, e);
+		// }
 	}
 }

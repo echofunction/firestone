@@ -179,9 +179,9 @@ export class AppBootstrapService {
 
 	private async showLoadingScreen() {
 		console.log('showing loading screen?', this.currentState, this.loadingWindowId);
-		if (this.currentState === 'READY') {
-			return;
-		}
+		// if (this.currentState === 'READY') {
+		// 	return;
+		// }
 		const result = await this.ow.restoreWindow(this.loadingWindowId);
 		// this.closeCollectionWindow();
 		console.log('final restore for loadingwindow done', result);

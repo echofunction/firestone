@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { OverwolfService } from '../overwolf.service';
 
 declare var OverwolfPlugin: any;
 
@@ -7,7 +8,7 @@ export class SimpleIOService {
 	simpleIOPlugin: any;
 	initialized = false;
 
-	constructor() {
+	constructor(private readonly ow: OverwolfService) {
 		this.initialized = false;
 		console.log('loading simple-io-plugin-zip');
 		this.simpleIOPlugin = new OverwolfPlugin('simple-io-plugin-zip', true);
@@ -25,14 +26,15 @@ export class SimpleIOService {
 	}
 
 	public async fileExists(filePath: string): Promise<boolean> {
-		await this.waitForInit();
-		const plugin = await this.get();
-		return new Promise<boolean>(resolve => {
-			plugin.fileExists(filePath, result => {
-				// console.log('file exists?', filePath, result, message);
-				resolve(result);
-			});
-		});
+		return this.ow.fileExists(filePath);
+		// await this.waitForInit();
+		// const plugin = await this.get();
+		// return new Promise<boolean>(resolve => {
+		// 	plugin.fileExists(filePath, result => {
+		// 		// console.log('file exists?', filePath, result, message);
+		// 		resolve(result);
+		// 	});
+		// });
 	}
 
 	public async deleteFile(filePath: string): Promise<boolean> {
@@ -47,14 +49,15 @@ export class SimpleIOService {
 	}
 
 	public async getFileContents(filePath: string): Promise<string> {
-		await this.waitForInit();
-		const plugin = await this.get();
-		return new Promise<string>(resolve => {
-			plugin.getTextFile(filePath, false, (result, contents) => {
-				// console.log('read file contents completed', filePath, result);
-				resolve(contents);
-			});
-		});
+		return this.ow.readFileContents(filePath);
+		// await this.waitForInit();
+		// const plugin = await this.get();
+		// return new Promise<string>(resolve => {
+		// 	plugin.getTextFile(filePath, false, (result, contents) => {
+		// 		// console.log('read file contents completed', filePath, result);
+		// 		resolve(contents);
+		// 	});
+		// });
 	}
 
 	public async zipAppLogFolder(appName: string): Promise<string> {

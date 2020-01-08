@@ -648,6 +648,28 @@ export class OverwolfService {
 		});
 	}
 
+	public async fileExists(filePath: string): Promise<boolean> {
+		return new Promise<boolean>(resolve => {
+			overwolf.io.fileExists(filePath, res => {
+				console.log('[overwolf] [io] file exists?', filePath, res);
+				resolve(res.found);
+			});
+		});
+	}
+
+	public async readFileContents(filePath: string): Promise<string> {
+		return new Promise<string>(resolve => {
+			overwolf.io.readFileContents(filePath, 'UTF8', res => {
+				console.log('[overwolf] [io] file contents', filePath, res);
+				resolve(res.content);
+			});
+		});
+	}
+
+	public async listenOnFile(id: string, filePath: string, options, callback) {
+		overwolf.io.listenOnFile(id, filePath, options, callback);
+	}
+
 	public gameRunning(gameInfo: any): boolean {
 		if (!gameInfo) {
 			return false;
