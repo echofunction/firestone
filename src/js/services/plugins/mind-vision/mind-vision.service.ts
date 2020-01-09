@@ -8,7 +8,7 @@ export class MindVisionService {
 	initialized = false;
 
 	constructor() {
-		// this.initialize();
+		this.initialize();
 	}
 
 	public async getCollection(): Promise<any[]> {
