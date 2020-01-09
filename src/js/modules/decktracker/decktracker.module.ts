@@ -8,6 +8,7 @@ import { init, Integrations } from '@sentry/browser';
 import { CaptureConsole, ExtraErrorData } from '@sentry/integrations';
 import { SelectModule } from 'ng-select';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { DeckTrackerOverlayComponent } from '../../components/decktracker/overlay/decktracker-overlay.component';
 import { DebugService } from '../../services/debug.service';
 import { Events } from '../../services/events.service';
@@ -47,6 +48,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		FormsModule,
 		ReactiveFormsModule,
 		SharedDeckTrackerModule,
+		NgScrollbarModule,
 		LoggerModule.forRoot({ level: NgxLoggerLevel.DEBUG }),
 	],
 	declarations: [],

@@ -1,9 +1,12 @@
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { SelectModule } from 'ng-select';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AdsComponent } from '../../components/ads.component';
 import { CdkOverlayContainer } from '../../components/cdk-overlay-container.component';
 import { ControlBugComponent } from '../../components/controls/control-bug.component';
@@ -33,7 +36,17 @@ import { PulseDirective } from '../../directives/pulse.directive';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 
 @NgModule({
-	imports: [BrowserModule, OverlayModule, SelectModule, FormsModule, ReactiveFormsModule, InlineSVGModule.forRoot()],
+	imports: [
+		CommonModule,
+		BrowserModule,
+		OverlayModule,
+		SelectModule,
+		FormsModule,
+		ReactiveFormsModule,
+		NgScrollbarModule,
+		ScrollingModule,
+		InlineSVGModule.forRoot(),
+	],
 	declarations: [
 		WindowWrapperComponent,
 
