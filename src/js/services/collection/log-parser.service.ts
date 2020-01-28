@@ -39,7 +39,7 @@ export class LogParserService {
 		}
 		const toProcess: string[] = eventQueue.map(logLine => logLine[1]);
 		if (toProcess.length > 0) {
-			// console.log('[pack-parser] lines to process', toProcess);
+			console.log('[pack-parser] lines to process', toProcess);
 			this.processLines(toProcess);
 		}
 		// We always process all the events
@@ -47,7 +47,7 @@ export class LogParserService {
 	}
 
 	public receiveLogLine(data: string) {
-		// console.log('[pack-parser] received log line', data);
+		console.log('[pack-parser] received log line', data);
 		const match = this.cardRegex.exec(data) || this.rewardRegex.exec(data);
 		if (match) {
 			this.processingQueue.enqueue([Date.now(), data]);
@@ -56,7 +56,7 @@ export class LogParserService {
 
 	private processLines(toProcess: string[]) {
 		// Are we opening a pack?
-		// console.log('[pack-parser] processing lines', toProcess);
+		console.log('[pack-parser] processing lines', toProcess);
 		const cards = this.extractCards(toProcess);
 		if (this.isPack(cards)) {
 			const setId = cards[0].set;

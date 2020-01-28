@@ -1,3 +1,4 @@
+import { BoardSecret } from './board-secret';
 import { DeckCard } from './deck-card';
 import { HeroCard } from './hero-card';
 import { DynamicZone } from './view/dynamic-zone';
@@ -11,6 +12,8 @@ export class DeckState {
 	readonly heroPower: DeckCard;
 	readonly deckList: readonly DeckCard[] = [];
 	readonly unknownRealCardsInDeck: boolean;
+
+	readonly secrets: readonly BoardSecret[] = [];
 
 	// Graveyard is not so easy in fact - we want to know the cards that
 	// can be interacted with, which means dead minions for Priest, or
