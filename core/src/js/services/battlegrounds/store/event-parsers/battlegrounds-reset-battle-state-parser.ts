@@ -8,7 +8,8 @@ export class BattlegroundsResetBattleStateParser implements EventParser {
 	}
 
 	public async parse(currentState: BattlegroundsState, gameEvent: GameEvent): Promise<BattlegroundsState> {
-		return currentState.resetBattleBoardInfo();
+		// return currentState.resetBattleBoardInfo();
+		return currentState;
 	}
 
 	public event() {

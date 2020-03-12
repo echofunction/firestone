@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BgsGlobalStats } from '../../models/battlegrounds/stats/bgs-global-stats';
+import { BgsStats } from '../../models/battlegrounds/stats/bgs-stats';
 
-const BGS_STATS_RETRIEVE_URL = 'https://and1h26lb1.execute-api.us-west-2.amazonaws.com/Prod';
+const BGS_STATS_RETRIEVE_URL = 'https://and1h26lb1.execute-api.us-west-2.amazonaws.com/Prod/{proxy+}';
 
 @Injectable()
 export class BgsGlobalStatsService {
 	constructor(private readonly http: HttpClient) {}
 
-	public async loadGlobalStats(): Promise<BgsGlobalStats> {
-		return new Promise<BgsGlobalStats>((resolve, reject) => {
+	public async loadGlobalStats(): Promise<BgsStats> {
+		return new Promise<BgsStats>((resolve, reject) => {
 			this.loadGlobalStatsInternal(result => resolve(result));
 		});
 	}
@@ -22,8 +22,11 @@ export class BgsGlobalStatsService {
 		}
 		this.http.get(`${BGS_STATS_RETRIEVE_URL}`).subscribe(
 			(result: any) => {
-				console.log('loaded bgs-global-stats', result);
-				callback(result);
+				const globalStats = BgsStats.create({
+					heroStats: result.result.heroStats,
+				} as BgsStats);
+				console.log('loaded bgs-global-stats', globalStats, result);
+				callback(globalStats);
 			},
 			error => {
 				setTimeout(() => this.loadGlobalStatsInternal(callback, retriesLeft - 1), 1000);

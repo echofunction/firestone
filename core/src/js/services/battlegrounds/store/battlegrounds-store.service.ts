@@ -5,18 +5,19 @@ import { GameEvent } from '../../../models/game-event';
 import { Events } from '../../events.service';
 import { GameEventsEmitterService } from '../../game-events-emitter.service';
 import { ProcessingQueue } from '../../processing-queue.service';
-import { EventParser } from './event-parser/_event-parser';
 import { BattlegroundsResetBattleStateParser } from './event-parsers/battlegrounds-reset-battle-state-parser';
-import { BattlegroundsEvent } from './events/_battlegrounds-event';
+import { BgsInitParser } from './event-parsers/bgs-init-parser';
+import { EventParser } from './event-parsers/_event-parser';
+import { BattlegroundsStoreEvent } from './events/_battlegrounds-store-event';
 
 @Injectable()
-export class GameStateService {
+export class BattlegroundsStoreService {
 	private state: BattlegroundsState = new BattlegroundsState();
 	private eventParsers: readonly EventParser[];
-	private battlegroundsUpdater: EventEmitter<BattlegroundsEvent> = new EventEmitter<BattlegroundsEvent>();
-	private battlegroundsEventBus = new BehaviorSubject<BattlegroundsState>(null);
+	private battlegroundsUpdater: EventEmitter<BattlegroundsStoreEvent> = new EventEmitter<BattlegroundsStoreEvent>();
+	private BattlegroundsStoreEventBus = new BehaviorSubject<BattlegroundsState>(null);
 
-	private processingQueue = new ProcessingQueue<BattlegroundsEvent>(
+	private processingQueue = new ProcessingQueue<BattlegroundsStoreEvent>(
 		eventQueue => this.processQueue(eventQueue),
 		50,
 		'battlegrounds-queue',
@@ -25,13 +26,13 @@ export class GameStateService {
 	constructor(private gameEvents: GameEventsEmitterService, private events: Events) {
 		this.eventParsers = this.buildEventParsers();
 		this.registerGameEvents();
-		this.battlegroundsUpdater.subscribe((event: GameEvent | BattlegroundsEvent) => {
+		this.battlegroundsUpdater.subscribe((event: GameEvent | BattlegroundsStoreEvent) => {
 			// this.logger.debug('[battlegrounds-state] enqueueing', event);
 			this.processingQueue.enqueue(event);
 		});
 		this.eventParsers = this.buildEventParsers();
 		this.registerGameEvents();
-		window['battlegroundsEventBus'] = this.battlegroundsEventBus;
+		window['BattlegroundsStoreEventBus'] = this.BattlegroundsStoreEventBus;
 		window['battlegroundsUpdater'] = this.battlegroundsUpdater;
 	}
 
@@ -41,7 +42,7 @@ export class GameStateService {
 		// });
 	}
 
-	private async processQueue(eventQueue: readonly BattlegroundsEvent[]) {
+	private async processQueue(eventQueue: readonly BattlegroundsStoreEvent[]) {
 		const gameEvent = eventQueue[0];
 		try {
 			await this.processEvent(gameEvent);
@@ -51,20 +52,20 @@ export class GameStateService {
 		return eventQueue.slice(1);
 	}
 
-	private async processEvent(gameEvent: BattlegroundsEvent) {
+	private async processEvent(gameEvent: BattlegroundsStoreEvent) {
 		for (const parser of this.eventParsers) {
 			try {
 				if (parser.applies(gameEvent, this.state)) {
 					this.state = await parser.parse(this.state, gameEvent);
-					this.battlegroundsEventBus.next(this.state);
+					this.BattlegroundsStoreEventBus.next(this.state);
 				}
 			} catch (e) {
-				console.error('[bgs-store] Exception while applying parser', parser.event(), e);
+				console.error('[bgs-store] Exception while applying parser', gameEvent.type, e);
 			}
 		}
 	}
 
 	private buildEventParsers(): readonly EventParser[] {
-		return [new BattlegroundsResetBattleStateParser()];
+		return [new BattlegroundsResetBattleStateParser(), new BgsInitParser()];
 	}
 }

@@ -1,9 +1,12 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { BgsGlobalStats } from '../../models/battlegrounds/stats/bgs-global-stats';
+import { BgsHeroStat } from '../../models/battlegrounds/stats/bgs-hero-stat';
+import { BgsStats } from '../../models/battlegrounds/stats/bgs-stats';
 import { GameStats } from '../../models/mainwindow/stats/game-stats';
 import { Events } from '../events.service';
 import { OverwolfService } from '../overwolf.service';
 import { BgsGlobalStatsService } from './bgs-global-stats.service';
+import { BgsInitEvent } from './store/events/bgs-init-event';
+import { BattlegroundsStoreEvent } from './store/events/_battlegrounds-store-event';
 
 @Injectable()
 export class BgsInitService {
@@ -14,15 +17,44 @@ export class BgsInitService {
 		private readonly bgsGlobalStats: BgsGlobalStatsService,
 		private readonly ow: OverwolfService,
 	) {
-		this.init();
+		this.events.on(Events.MATCH_STATS_UPDATED).subscribe(event => {
+			this.init(event.data[0]);
+		});
 		setTimeout(() => {
-			this.stateUpdater = this.ow.getMainWindow().mainWindowStoreUpdater;
+			this.stateUpdater = this.ow.getMainWindow().battlegroundsUpdater;
 		});
 	}
 
-	private async init() {
-		const bgsGlobalStats: BgsGlobalStats = await this.bgsGlobalStats.loadGlobalStats();
-		const matchStats: GameStats = (await this.events.on(Events.MATCH_STATS_UPDATED).toPromise()).data[0];
-		this.stateUpdater.next(new BgsInitEvent(matchStats, bgsGlobalStats));
+	private async init(matchStats: GameStats) {
+		console.log('bgs init starting', matchStats);
+		const bgsGlobalStats: BgsStats = await this.bgsGlobalStats.loadGlobalStats();
+		console.log('bgs got global stats', bgsGlobalStats);
+		const bgsMatchStats = matchStats.stats.filter(stat => stat.gameMode === 'battlegrounds');
+		if (!bgsMatchStats || bgsMatchStats.length === 0) {
+			console.log('no bgs match stats', matchStats);
+			return;
+		}
+		const buildNumber = bgsMatchStats[0].buildNumber;
+		const bgsStatsForCurrentPatch = bgsMatchStats.filter(stat => stat.buildNumber === buildNumber);
+
+		const heroStatsWithPlayer: readonly BgsHeroStat[] = bgsGlobalStats.heroStats.map(heroStat =>
+			BgsHeroStat.create({
+				...heroStat,
+				playerPopularity:
+					(100 * bgsStatsForCurrentPatch.filter(stat => stat.playerCardId === heroStat.id).length) /
+					bgsStatsForCurrentPatch.length,
+				playerAveragePosition:
+					bgsStatsForCurrentPatch
+						.filter(stat => stat.playerCardId === heroStat.id)
+						.map(stat => parseInt(stat.additionalResult))
+						.reduce((a, b) => a + b, 0) /
+					bgsStatsForCurrentPatch.filter(stat => stat.playerCardId === heroStat.id).length,
+			} as BgsHeroStat),
+		);
+		const statsWithPlayer = bgsGlobalStats.update({
+			heroStats: heroStatsWithPlayer,
+		} as BgsStats);
+		console.log('will send bgs init event', statsWithPlayer);
+		this.stateUpdater.next(new BgsInitEvent(bgsStatsForCurrentPatch, statsWithPlayer));
 	}
 }

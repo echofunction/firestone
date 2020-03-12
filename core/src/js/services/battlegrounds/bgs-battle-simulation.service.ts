@@ -2,17 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { BgsBattleInfo } from '../../models/battlegrounds/bgs-battle-info';
 import { BgsBattleSimulationResult } from '../../models/battlegrounds/bgs-battle-simulation-result';
-import { GameEvent } from '../../models/game-event';
 import { Events } from '../events.service';
 import { OverwolfService } from '../overwolf.service';
 import { BattlegroundsBattleSimulationEvent } from './store/events/battlegrounds-battle-simulation-event';
-import { BattlegroundsEvent } from './store/events/_battlegrounds-event';
+import { BattlegroundsStoreEvent } from './store/events/_battlegrounds-store-event';
 
 const BGS_BATTLE_SIMULATION_ENDPOINT = 'https://tsu2ztwayc.execute-api.us-west-2.amazonaws.com/Prod/{proxy+}';
 
 @Injectable()
 export class BgsBattleSimulationService {
-	private stateUpdater: EventEmitter<GameEvent | BattlegroundsEvent>;
+	private stateUpdater: EventEmitter<BattlegroundsStoreEvent>;
 
 	constructor(
 		private readonly events: Events,
