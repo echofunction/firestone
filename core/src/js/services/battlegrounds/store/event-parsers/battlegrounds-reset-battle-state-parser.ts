@@ -1,6 +1,6 @@
-import { BattlegroundsState } from '../../../models/battlegrounds/old/battlegrounds-state';
-import { GameEvent } from '../../../models/game-event';
-import { EventParser } from './event-parser';
+import { BattlegroundsState } from '../../../../models/battlegrounds/battlegrounds-state';
+import { GameEvent } from '../../../../models/game-event';
+import { EventParser } from './_event-parser';
 
 export class BattlegroundsResetBattleStateParser implements EventParser {
 	public applies(gameEvent: GameEvent, state: BattlegroundsState): boolean {

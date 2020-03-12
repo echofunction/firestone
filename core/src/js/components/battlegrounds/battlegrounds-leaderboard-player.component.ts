@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, ViewRef } from '@angular/core';
 import { BattlegroundsPlayer } from '../../models/battlegrounds/old/battlegrounds-player';
 import { GameEvent } from '../../models/game-event';
-import { BattlegroundsEvent } from '../../services/battlegrounds/events/battlegrounds-event';
 import { BattlegroundsHidePlayerInfoEvent } from '../../services/battlegrounds/old/events/battlegrounds-hide-player-info-event';
 import { BattlegroundsShowPlayerInfoEvent } from '../../services/battlegrounds/old/events/battlegrounds-show-player-info-event';
+import { BattlegroundsEvent } from '../../services/battlegrounds/store/events/_battlegrounds-event';
 import { OverwolfService } from '../../services/overwolf.service';
 
 @Component({

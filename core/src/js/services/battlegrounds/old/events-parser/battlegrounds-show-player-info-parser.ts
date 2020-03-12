@@ -1,7 +1,7 @@
 import { BattlegroundsState } from '../../../../models/battlegrounds/old/battlegrounds-state';
 import { GameEvent } from '../../../../models/game-event';
-import { EventParser } from '../../events-parser/event-parser';
-import { BattlegroundsEvent } from '../../events/battlegrounds-event';
+import { EventParser } from '../../store/event-parser/_event-parser';
+import { BattlegroundsEvent } from '../../store/events/_battlegrounds-event';
 import { BattlegroundsShowPlayerInfoEvent } from '../events/battlegrounds-show-player-info-event';
 
 export class BattlegroundsShowPlayerInfoParser implements EventParser {

@@ -8,7 +8,7 @@ import { BattlegroundsPlayer } from '../../../../models/battlegrounds/old/battle
 import { BattlegroundsState } from '../../../../models/battlegrounds/old/battlegrounds-state';
 import { GameEvent } from '../../../../models/game-event';
 import { Events } from '../../../events.service';
-import { EventParser } from '../../events-parser/event-parser';
+import { EventParser } from '../../store/event-parser/_event-parser';
 
 export class BattlegroundsPlayerBoardParser implements EventParser {
 	constructor(private readonly events: Events) {}

@@ -1,6 +1,6 @@
 import { BattlegroundsState } from '../../../../models/battlegrounds/old/battlegrounds-state';
-import { EventParser } from '../../events-parser/event-parser';
-import { BattlegroundsEvent } from '../../events/battlegrounds-event';
+import { EventParser } from '../../store/event-parser/_event-parser';
+import { BattlegroundsEvent } from '../../store/events/_battlegrounds-event';
 import { BattlegroundsHidePlayerInfoEvent } from '../events/battlegrounds-hide-player-info-event';
 
 export class BattlegroundsHidePlayerInfoParser implements EventParser {

@@ -3,7 +3,7 @@ import { BattlegroundsHero } from '../../../../models/battlegrounds/old/battlegr
 import { BattlegroundsState } from '../../../../models/battlegrounds/old/battlegrounds-state';
 import { GameEvent } from '../../../../models/game-event';
 import { MainWindowState } from '../../../../models/mainwindow/main-window-state';
-import { EventParser } from '../../events-parser/event-parser';
+import { EventParser } from '../../store/event-parser/_event-parser';
 import { BattlegroundsHeroInfoService } from '../battlegrounds-hero-info.service';
 
 export class BattlegroundsShowHeroSelectionParser implements EventParser {

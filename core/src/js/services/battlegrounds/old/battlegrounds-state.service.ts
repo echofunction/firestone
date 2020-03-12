@@ -11,9 +11,9 @@ import { MainWindowStoreService } from '../../mainwindow/store/main-window-store
 import { OverwolfService } from '../../overwolf.service';
 import { PreferencesService } from '../../preferences.service';
 import { ProcessingQueue } from '../../processing-queue.service';
-import { BattlegroundsResetBattleStateParser } from '../events-parser/battlegrounds-reset-battle-state-parser';
-import { EventParser } from '../events-parser/event-parser';
-import { BattlegroundsEvent } from '../events/battlegrounds-event';
+import { BattlegroundsResetBattleStateParser } from '../store/event-parser/battlegrounds-reset-battle-state-processor';
+import { EventParser } from '../store/event-parser/_event-parser';
+import { BattlegroundsEvent } from '../store/events/_battlegrounds-event';
 import { BattlegroundsHeroInfoService } from './battlegrounds-hero-info.service';
 import { BattlegroundsBattleSimulationParser } from './events-parser/battlegrounds-battle-simulation-parser';
 import { BattlegroundsHideHeroSelectionParser } from './events-parser/battlegrounds-hide-hero-selection-parser';
