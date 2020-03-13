@@ -19,7 +19,8 @@ export class BgsInitParser implements EventParser {
 			globalStats: event.bgsGlobalStats,
 			stages: stages,
 			currentStageId: undefined,
-		});
+			currentPanelId: undefined,
+		} as BattlegroundsState);
 	}
 
 	private buildHeroSelectionStage(): BgsHeroSelectionStage {

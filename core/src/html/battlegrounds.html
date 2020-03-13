@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="width: 100%; overflow: hidden; height: 100%;">
+<html style="background: transparent;">
 	<head>
 		<script type="text/javascript">
 			(function(e, t) {
@@ -88,15 +88,27 @@
 
 			amplitude.getInstance().init('9c277b849857b1e890eef22bc4471f2e');
 		</script>
-		<title>Firestone - BGS Hero Selection</title>
+
+		<script>
+			var adsReady = false;
+		</script>
+
+		<title>Firestone - Battlegrounds</title>
 		<meta charset="UTF-8" />
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Passion+One:400,600,700" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700" rel="stylesheet" />
+
+		<script src="plugins/overwolfplugin.js"></script>
 	</head>
 
-	<body style="width: 100%; height: 100%; overflow: hidden; padding: 0; margin: 0;">
-		<battlegrounds-hero-selection-overlay></battlegrounds-hero-selection-overlay>
+	<body>
+		<battlegrounds></battlegrounds>
+
+		<script>
+			function onOwAdReady() {
+				adsReady = true;
+			}
+		</script>
+		<script src="http://content.overwolf.com/libs/ads/latest/owads.min.js" async onload="onOwAdReady()"></script>
 	</body>
 </html>

@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { AllCardsService } from '@firestone-hs/replay-parser';
 import { BgsHeroStat } from '../../models/battlegrounds/stats/bgs-hero-stat';
 import { BgsStats } from '../../models/battlegrounds/stats/bgs-stats';
 import { GameStats } from '../../models/mainwindow/stats/game-stats';
@@ -16,6 +17,7 @@ export class BgsInitService {
 		private readonly events: Events,
 		private readonly bgsGlobalStats: BgsGlobalStatsService,
 		private readonly ow: OverwolfService,
+		private readonly cards: AllCardsService,
 	) {
 		this.events.on(Events.MATCH_STATS_UPDATED).subscribe(event => {
 			this.init(event.data[0]);
@@ -37,20 +39,24 @@ export class BgsInitService {
 		const buildNumber = bgsMatchStats[0].buildNumber;
 		const bgsStatsForCurrentPatch = bgsMatchStats.filter(stat => stat.buildNumber === buildNumber);
 
-		const heroStatsWithPlayer: readonly BgsHeroStat[] = bgsGlobalStats.heroStats.map(heroStat =>
-			BgsHeroStat.create({
+		const heroStatsWithPlayer: readonly BgsHeroStat[] = bgsGlobalStats.heroStats.map(heroStat => {
+			const playerGamesPlayed = bgsStatsForCurrentPatch.filter(stat => stat.playerCardId === heroStat.id).length;
+			const playerPopularity = (100 * playerGamesPlayed) / bgsStatsForCurrentPatch.length;
+			return BgsHeroStat.create({
 				...heroStat,
-				playerPopularity:
-					(100 * bgsStatsForCurrentPatch.filter(stat => stat.playerCardId === heroStat.id).length) /
-					bgsStatsForCurrentPatch.length,
+				name: this.cards.getCard(heroStat.id)?.name,
+				playerGamesPlayed: playerGamesPlayed,
+				playerPopularity: playerPopularity,
 				playerAveragePosition:
-					bgsStatsForCurrentPatch
-						.filter(stat => stat.playerCardId === heroStat.id)
-						.map(stat => parseInt(stat.additionalResult))
-						.reduce((a, b) => a + b, 0) /
-					bgsStatsForCurrentPatch.filter(stat => stat.playerCardId === heroStat.id).length,
-			} as BgsHeroStat),
-		);
+					playerPopularity === 0
+						? 0
+						: bgsStatsForCurrentPatch
+								.filter(stat => stat.playerCardId === heroStat.id)
+								.map(stat => parseInt(stat.additionalResult))
+								.reduce((a, b) => a + b, 0) /
+						  bgsStatsForCurrentPatch.filter(stat => stat.playerCardId === heroStat.id).length,
+			} as BgsHeroStat);
+		});
 		const statsWithPlayer = bgsGlobalStats.update({
 			heroStats: heroStatsWithPlayer,
 		} as BgsStats);

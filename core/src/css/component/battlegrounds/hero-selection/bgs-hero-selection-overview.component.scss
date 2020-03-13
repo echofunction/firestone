@@ -1,0 +1,13 @@
+:host() {
+	display: flex;
+}
+
+.hero-selection-overview {
+	display: flex;
+	flex-grow: 1;
+	justify-content: space-around;
+}
+
+bgs-hero-overview {
+	width: 30%;
+}

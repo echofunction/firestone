@@ -1,0 +1,28 @@
+.hero-overview {
+	display: flex;
+	flex-direction: column;
+	background: rgba(255, 255, 255, 0.04);
+	height: 100%;
+	align-items: center;
+
+	.portrait {
+		width: 70%;
+	}
+
+	.name {
+		color: var(--default-title-color);
+	}
+
+	.stats {
+		display: flex;
+		flex-direction: column;
+
+		.entry {
+			display: flex;
+		}
+
+		.global-value {
+			margin-left: 5px;
+		}
+	}
+}

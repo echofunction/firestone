@@ -56,6 +56,14 @@ export class DevService {
 			const info = await this.memoryService.getArenaInfo();
 			console.log(info);
 		};
+		window['matchStart'] = async () => {
+			this.gameEvents.dispatchGameEvent({
+				Type: 'BATTLEGROUNDS_HERO_SELECTION',
+				Value: {
+					CardIds: ['TB_BaconShop_HERO_58', 'TB_BaconShop_HERO_22', 'TB_BaconShop_HERO_56'],
+				},
+			});
+		};
 	}
 
 	private addAchievementCommands() {
