@@ -56,6 +56,8 @@ export class BgsHeroSelectionParser implements EventParser {
 			ownAveragePosition: stat.playerAveragePosition,
 			ownPopularity: stat.playerPopularity,
 			ownGamesPlayed: stat.playerGamesPlayed,
+			tribesStat: stat.tribesStat,
+			warbandStats: stat.warbandStats,
 		});
 	}
 }

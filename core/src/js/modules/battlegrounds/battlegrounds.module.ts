@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { init, Integrations } from '@sentry/browser';
 import { CaptureConsole, ExtraErrorData } from '@sentry/integrations';
 import { SelectModule } from 'ng-select';
+import { ChartsModule } from 'ng2-charts';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { BattlegroundsContentComponent } from '../../components/battlegrounds/battlegrounds-content.component';
 import { BattlegroundsComponent } from '../../components/battlegrounds/battlegrounds.component';
 import { BgsHeroOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-overview.component';
 import { BgsHeroSelectionOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-selection-overview.component';
+import { BgsHeroWarbandStatsComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-warband-stats.component';
 import { AdService } from '../../services/ad.service';
 import { SharedServicesModule } from '../shared-services/shared-services.module';
 import { SharedModule } from '../shared/shared.module';
@@ -46,6 +48,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		FormsModule,
 		ReactiveFormsModule,
 		LoggerModule.forRoot({ level: NgxLoggerLevel.DEBUG }),
+		ChartsModule,
 		SharedServicesModule.forRoot(),
 	],
 	declarations: [
@@ -53,6 +56,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		BattlegroundsContentComponent,
 		BgsHeroSelectionOverviewComponent,
 		BgsHeroOverviewComponent,
+		BgsHeroWarbandStatsComponent,
 	],
 	bootstrap: [BattlegroundsComponent],
 	providers: [AdService],

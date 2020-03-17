@@ -7,6 +7,7 @@ import { init, Integrations } from '@sentry/browser';
 import { CaptureConsole, ExtraErrorData } from '@sentry/integrations';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { SelectModule } from 'ng-select';
+import { ChartsModule } from 'ng2-charts';
 import { AchievementImageComponent } from 'src/js/components/achievements/achievement-image.component';
 import { AchievementProgressBarComponent } from 'src/js/components/achievements/achievement-progress-bar.component';
 import { AchievementRecordingsComponent } from 'src/js/components/achievements/achievement-recordings.component';
@@ -101,6 +102,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		VgOverlayPlayModule,
 		VgBufferingModule,
 		SharedServicesModule.forRoot(),
+		ChartsModule,
 	],
 	declarations: [
 		MainWindowNavigationComponent,
