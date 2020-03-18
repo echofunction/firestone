@@ -25,6 +25,14 @@ declare var amplitude: any;
 	encapsulation: ViewEncapsulation.None,
 	template: `
 		<window-wrapper [activeTheme]="'achievements'" [allowResize]="true">
+			<div class="controls">
+				<control-bug></control-bug>
+				<control-settings [windowId]="windowId"></control-settings>
+				<control-discord></control-discord>
+				<control-minimize [windowId]="windowId" [isMainWindow]="true"></control-minimize>
+				<control-maximize [windowId]="windowId"></control-maximize>
+				<control-close [windowId]="windowId"></control-close>
+			</div>
 			<battlegrounds-content [state]="state"> </battlegrounds-content>
 			<ads [parentComponent]="'battlegrounds'"></ads>
 		</window-wrapper>
