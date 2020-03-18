@@ -663,6 +663,28 @@ export class GameEvents {
 					} as GameEvent),
 				);
 				break;
+			case 'BATTLEGROUNDS_NEXT_OPPONENT':
+				// console.log(gameEvent.Type + ' event', gameEvent.Value.AdditionalProps.NewPlace);
+				this.gameEventsEmitter.allEvents.next(
+					Object.assign(new GameEvent(), {
+						type: GameEvent.BATTLEGROUNDS_NEXT_OPPONENT,
+						additionalData: {
+							nextOpponentCardId: gameEvent.Value.CardId,
+						},
+					} as GameEvent),
+				);
+				break;
+			case 'BATTLEGROUNDS_OPPONENT_REVEALED':
+				// console.log(gameEvent.Type + ' event', gameEvent.Value.AdditionalProps.NewPlace);
+				this.gameEventsEmitter.allEvents.next(
+					Object.assign(new GameEvent(), {
+						type: GameEvent.BATTLEGROUNDS_OPPONENT_REVEALED,
+						additionalData: {
+							cardId: gameEvent.Value.CardId,
+						},
+					} as GameEvent),
+				);
+				break;
 			case 'BATTLEGROUNDS_PLAYER_BOARD':
 				// console.log(gameEvent.Type + ' event', gameEvent.Value.AdditionalProps.NewPlace);
 				this.gameEventsEmitter.allEvents.next(

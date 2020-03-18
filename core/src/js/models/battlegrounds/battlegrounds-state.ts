@@ -1,3 +1,4 @@
+import { BgsGame } from './bgs-game';
 import { BgsPanelId } from './bgs-panel-id.type';
 import { BgsStage } from './bgs-stage';
 import { BgsStageId } from './bgs-stage-id.type';
@@ -8,6 +9,7 @@ export class BattlegroundsState {
 	readonly currentStageId: BgsStageId;
 	readonly currentPanelId: BgsPanelId;
 	readonly globalStats: BgsStats;
+	readonly currentGame: BgsGame;
 	readonly inGame: boolean;
 
 	public static create(base: BattlegroundsState): BattlegroundsState {

@@ -1,1 +1,1 @@
-export type BgsPanelId = 'bgs-hero-selection-overview';
+export type BgsPanelId = 'bgs-hero-selection-overview' | 'bgs-next-opponent-overview';
