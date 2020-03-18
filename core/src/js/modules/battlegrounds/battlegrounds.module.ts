@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ColiseumComponentsModule } from '@firestone-hs/coliseum-components';
 import { init, Integrations } from '@sentry/browser';
 import { CaptureConsole, ExtraErrorData } from '@sentry/integrations';
 import { SelectModule } from 'ng-select';
@@ -14,6 +15,7 @@ import { BattlegroundsComponent } from '../../components/battlegrounds/battlegro
 import { BgsHeroOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-overview.component';
 import { BgsHeroSelectionOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-selection-overview.component';
 import { BgsHeroWarbandStatsComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-warband-stats.component';
+import { BgsNextOpponentOverviewComponent } from '../../components/battlegrounds/in-game/bgs-next-opponent-overview';
 import { AdService } from '../../services/ad.service';
 import { SharedServicesModule } from '../shared-services/shared-services.module';
 import { SharedModule } from '../shared/shared.module';
@@ -50,6 +52,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		LoggerModule.forRoot({ level: NgxLoggerLevel.DEBUG }),
 		ChartsModule,
 		SharedServicesModule.forRoot(),
+		ColiseumComponentsModule,
 	],
 	declarations: [
 		BattlegroundsComponent,
@@ -57,6 +60,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		BgsHeroSelectionOverviewComponent,
 		BgsHeroOverviewComponent,
 		BgsHeroWarbandStatsComponent,
+		BgsNextOpponentOverviewComponent,
 	],
 	bootstrap: [BattlegroundsComponent],
 	providers: [AdService],

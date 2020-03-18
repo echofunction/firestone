@@ -1,0 +1,41 @@
+.next-opponent-overview {
+	display: flex;
+	flex-direction: column;
+
+	.header {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.icon {
+		width: 60%;
+	}
+
+	board {
+		width: 80%;
+		position: relative;
+		top: 10%;
+		height: 1%;
+	}
+
+	::ng-deep board {
+		.board li {
+			width: 11%;
+		}
+		board-card-stats .stat {
+			color: #fff;
+		}
+	}
+
+	.body {
+		margin-top: 25px;
+		display: flex;
+	}
+}
+
+.tavern-upgrades,
+.triple-tiers {
+	display: flex;
+	flex-direction: column;
+	margin-right: 10%;
+}

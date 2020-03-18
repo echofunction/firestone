@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { GameType } from '@firestone-hs/reference-data';
+import { AllCardsService } from '@firestone-hs/replay-parser';
 import { BehaviorSubject } from 'rxjs';
 import { BattlegroundsState } from '../../../models/battlegrounds/battlegrounds-state';
 import { GameEvent } from '../../../models/game-event';
@@ -45,7 +46,12 @@ export class BattlegroundsStoreService {
 		'battlegrounds-queue',
 	);
 
-	constructor(private gameEvents: GameEventsEmitterService, private events: Events, private ow: OverwolfService) {
+	constructor(
+		private gameEvents: GameEventsEmitterService,
+		private allCards: AllCardsService,
+		private events: Events,
+		private ow: OverwolfService,
+	) {
 		this.eventParsers = this.buildEventParsers();
 		this.registerGameEvents();
 		this.battlegroundsUpdater.subscribe((event: GameEvent | BattlegroundsStoreEvent) => {
@@ -74,6 +80,7 @@ export class BattlegroundsStoreService {
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_OPPONENT_REVEALED) {
 				this.battlegroundsUpdater.next(new BgsOpponentRevealedEvent(gameEvent.additionalData.cardId));
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_COMBAT_START) {
+				console.log('ready to update turn', this.state);
 				// We use this instead of TURN_START so that we only have the combat phase, instead of both turns
 				this.battlegroundsUpdater.next(new BgsTurnStartEvent());
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_TAVERN_UPGRADE) {
@@ -147,7 +154,7 @@ export class BattlegroundsStoreService {
 			new BgsTavernUpgradeParser(),
 			new BgsPlayerBoardParser(),
 			new BgsTripleCreatedParser(),
-			new BgsOpponentRevealedParser(),
+			new BgsOpponentRevealedParser(this.allCards),
 			new BgsTurnStartParser(),
 			new BgsMatchStartParser(),
 		];

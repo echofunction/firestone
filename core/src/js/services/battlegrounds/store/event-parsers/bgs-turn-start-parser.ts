@@ -10,6 +10,7 @@ export class BgsTurnStartParser implements EventParser {
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsTurnStartEvent): Promise<BattlegroundsState> {
+		console.log('updating turn', currentState);
 		return currentState.update({
 			currentGame: currentState.currentGame.update({
 				currentTurn: currentState.currentGame.currentTurn + 1,

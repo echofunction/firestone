@@ -40,6 +40,12 @@ declare var amplitude: any;
 				<ng-container [ngSwitch]="currentPanel.id">
 					<bgs-hero-selection-overview *ngSwitchCase="'bgs-hero-selection-overview'" [panel]="currentPanel">
 					</bgs-hero-selection-overview>
+					<bgs-next-opponent-overview
+						*ngSwitchCase="'bgs-next-opponent-overview'"
+						[panel]="currentPanel"
+						[game]="_state.currentGame"
+					>
+					</bgs-next-opponent-overview>
 				</ng-container>
 			</section>
 		</div>
