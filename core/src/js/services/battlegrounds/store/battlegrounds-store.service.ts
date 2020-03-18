@@ -8,6 +8,7 @@ import { GameEventsEmitterService } from '../../game-events-emitter.service';
 import { OverwolfService } from '../../overwolf.service';
 import { ProcessingQueue } from '../../processing-queue.service';
 import { BattlegroundsResetBattleStateParser } from './event-parsers/battlegrounds-reset-battle-state-parser';
+import { BgsHeroSelectedParser } from './event-parsers/bgs-hero-selected-parser';
 import { BgsHeroSelectionDoneParser } from './event-parsers/bgs-hero-selection-done-parser';
 import { BgsHeroSelectionParser } from './event-parsers/bgs-hero-selection-parser';
 import { BgsInitParser } from './event-parsers/bgs-init-parser';
@@ -19,6 +20,7 @@ import { BgsTavernUpgradeParser } from './event-parsers/bgs-tavern-upgrade-parse
 import { BgsTripleCreatedParser } from './event-parsers/bgs-triple-created-parser';
 import { BgsTurnStartParser } from './event-parsers/bgs-turn-start-parser';
 import { EventParser } from './event-parsers/_event-parser';
+import { BgsHeroSelectedEvent } from './events/bgs-hero-selected-event';
 import { BgsHeroSelectionDoneEvent } from './events/bgs-hero-selection-done-event';
 import { BgsHeroSelectionEvent } from './events/bgs-hero-selection-event';
 import { BgsMatchStartEvent } from './events/bgs-match-start-event';
@@ -58,6 +60,8 @@ export class BattlegroundsStoreService {
 		this.gameEvents.allEvents.subscribe((gameEvent: GameEvent) => {
 			if (gameEvent.type === GameEvent.BATTLEGROUNDS_HERO_SELECTION) {
 				this.battlegroundsUpdater.next(new BgsHeroSelectionEvent(gameEvent.additionalData.heroCardIds));
+			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_HERO_SELECTED) {
+				this.battlegroundsUpdater.next(new BgsHeroSelectedEvent(gameEvent.cardId));
 			} else if (
 				gameEvent.type === GameEvent.MATCH_METADATA &&
 				gameEvent.additionalData.metaData.GameType === GameType.GT_BATTLEGROUNDS
@@ -109,7 +113,7 @@ export class BattlegroundsStoreService {
 			try {
 				if (parser.applies(gameEvent, this.state)) {
 					this.state = await parser.parse(this.state, gameEvent);
-					console.log('updated state', gameEvent.type, this.state);
+					console.log('updated state', gameEvent.type, this.state, gameEvent);
 					this.battlegroundsStoreEventBus.next(this.state);
 					this.updateOverlay();
 				}
@@ -137,6 +141,7 @@ export class BattlegroundsStoreService {
 			new BattlegroundsResetBattleStateParser(),
 			new BgsInitParser(),
 			new BgsHeroSelectionParser(),
+			new BgsHeroSelectedParser(),
 			new BgsHeroSelectionDoneParser(),
 			new BgsNextOpponentParser(),
 			new BgsTavernUpgradeParser(),

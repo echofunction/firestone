@@ -56,14 +56,6 @@ export class BattlegroundsComponent implements AfterViewInit, OnDestroy {
 		this.cdr.detach();
 		this.windowId = (await this.ow.getCurrentWindow()).id;
 		console.log('windowId', this.windowId);
-		// this.messageReceivedListener = this.ow.addMessageReceivedListener(async message => {
-		// 	if (message.id === 'move') {
-		// 		const window = await this.ow.getCurrentWindow();
-		// 		const newX = message.content.x - window.width / 2;
-		// 		const newY = message.content.y - window.height / 2;
-		// 		this.ow.changeWindowPosition(this.windowId, newX, newY);
-		// 	}
-		// });
 		this.stateChangedListener = this.ow.addStateChangedListener(OverwolfService.BATTLEGROUNDS_WINDOW, message => {
 			console.log('received battlegrounds window message', message, this.isMaximized);
 			// If hidden, restore window to as it was

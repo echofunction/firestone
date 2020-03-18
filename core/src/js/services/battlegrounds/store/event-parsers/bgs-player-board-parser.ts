@@ -15,6 +15,7 @@ export class BgsPlayerBoardParser implements EventParser {
 
 	public async parse(currentState: BattlegroundsState, event: BgsPlayerBoardEvent): Promise<BattlegroundsState> {
 		const playerToUpdate = currentState.currentGame.players.find(player => player.cardId === event.heroCardId);
+		console.log('finding player board', playerToUpdate, event, currentState);
 		const newHistory: readonly BgsBoard[] = [
 			...playerToUpdate.boardHistory,
 			BgsBoard.create({

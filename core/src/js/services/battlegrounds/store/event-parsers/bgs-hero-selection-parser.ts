@@ -45,7 +45,7 @@ export class BgsHeroSelectionParser implements EventParser {
 			heroOverview: heroOverview,
 		} as BgsHeroSelectionOverview);
 	}
-	b;
+
 	private buildHeroOverview(heroCardId: string, stats: BgsStats): BgsHeroOverview {
 		const stat = stats.heroStats.find(heroStat => heroStat.id === heroCardId);
 		return BgsHeroOverview.create({

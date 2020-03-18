@@ -663,6 +663,15 @@ export class GameEvents {
 					} as GameEvent),
 				);
 				break;
+			case 'BATTLEGROUNDS_HERO_SELECTED':
+				// console.log(gameEvent.Type + ' event', gameEvent.Value.AdditionalProps.NewPlace);
+				this.gameEventsEmitter.allEvents.next(
+					Object.assign(new GameEvent(), {
+						type: GameEvent.BATTLEGROUNDS_HERO_SELECTED,
+						cardId: gameEvent.Value.CardId,
+					} as GameEvent),
+				);
+				break;
 			case 'BATTLEGROUNDS_NEXT_OPPONENT':
 				// console.log(gameEvent.Type + ' event', gameEvent.Value.AdditionalProps.NewPlace);
 				this.gameEventsEmitter.allEvents.next(

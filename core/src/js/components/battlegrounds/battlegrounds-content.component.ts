@@ -28,14 +28,14 @@ declare var amplitude: any;
 							<span>{{ stage.name }}</span>
 						</div>
 					</div>
-					<div class="secondary-menu">
+					<div class="secondary-menu" *ngIf="currentStage">
 						<div *ngFor="let panel of currentStage.panels" class="panel-button">
 							<span>{{ panel.name }}</span>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section class="content">
+			<section class="content" *ngIf="currentPanel">
 				<div class="title">{{ currentPanel.name }}</div>
 				<ng-container [ngSwitch]="currentPanel.id">
 					<bgs-hero-selection-overview *ngSwitchCase="'bgs-hero-selection-overview'" [panel]="currentPanel">

@@ -1,17 +1,16 @@
 import { BattlegroundsState } from '../../../../models/battlegrounds/battlegrounds-state';
 import { BgsGame } from '../../../../models/battlegrounds/bgs-game';
 import { BgsPlayer } from '../../../../models/battlegrounds/bgs-player';
-import { BgsOpponentRevealedEvent } from '../events/bgs-opponent-revealed-event';
+import { BgsHeroSelectedEvent } from '../events/bgs-hero-selected-event';
 import { BattlegroundsStoreEvent } from '../events/_battlegrounds-store-event';
 import { EventParser } from './_event-parser';
 
-export class BgsOpponentRevealedParser implements EventParser {
+export class BgsHeroSelectedParser implements EventParser {
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsOpponentRevealedEvent';
+		return state && gameEvent.type === 'BgsHeroSelectedEvent';
 	}
 
-	public async parse(currentState: BattlegroundsState, event: BgsOpponentRevealedEvent): Promise<BattlegroundsState> {
-		console.log('opponent revealed', event, currentState);
+	public async parse(currentState: BattlegroundsState, event: BgsHeroSelectedEvent): Promise<BattlegroundsState> {
 		const newPlayer: BgsPlayer = BgsPlayer.create({
 			cardId: event.cardId,
 		} as BgsPlayer);
