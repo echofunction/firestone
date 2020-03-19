@@ -101,6 +101,8 @@ export class BattlegroundsStoreService {
 				this.battlegroundsUpdater.next(new BgsTripleCreatedEvent(gameEvent.cardId));
 				// } else if (gameEvent.type === GameEvent.BATTLEGROUNDS_BOARD_COMPOSITION) {
 				// 	this.battlegroundsUpdater.next(new BgsBoardCompositionEvent());
+			} else if (gameEvent.type === GameEvent.GAME_END) {
+				this.battlegroundsUpdater.next(new BgsGameEndEvent(gameEvent.additionalData.replayXml));
 			}
 		});
 	}

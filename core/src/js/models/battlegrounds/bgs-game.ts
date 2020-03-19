@@ -11,4 +11,8 @@ export class BgsGame {
 	public update(base: BgsGame) {
 		return Object.assign(new BgsGame(), this, base);
 	}
+
+	public getMainPlayer(): BgsPlayer {
+		return this.players.find(player => player.isMainPlayer);
+	}
 }

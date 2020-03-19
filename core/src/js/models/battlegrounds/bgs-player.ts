@@ -9,6 +9,7 @@ import { BgsTriple } from './in-game/bgs-triple';
 export class BgsPlayer {
 	readonly cardId: string;
 	readonly name: string;
+	readonly isMainPlayer: boolean = false;
 	readonly tavernUpgradeHistory: readonly BgsTavernUpgrade[] = [];
 	readonly tripleHistory: readonly BgsTriple[] = [];
 	readonly compositionHistory: readonly BgsComposition[] = [];

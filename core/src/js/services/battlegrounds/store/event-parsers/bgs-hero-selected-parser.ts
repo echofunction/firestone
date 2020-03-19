@@ -13,6 +13,7 @@ export class BgsHeroSelectedParser implements EventParser {
 	public async parse(currentState: BattlegroundsState, event: BgsHeroSelectedEvent): Promise<BattlegroundsState> {
 		const newPlayer: BgsPlayer = BgsPlayer.create({
 			cardId: event.cardId,
+			isMainPlayer: true,
 		} as BgsPlayer);
 		const newGame = currentState.currentGame.update({
 			players: [...currentState.currentGame.players, newPlayer] as readonly BgsPlayer[],
