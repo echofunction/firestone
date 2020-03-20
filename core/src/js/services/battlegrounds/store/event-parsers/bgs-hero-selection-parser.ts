@@ -38,26 +38,37 @@ export class BgsHeroSelectionParser implements EventParser {
 	}
 
 	private buildBgsHeroSelectionOverview(heroCardIds: readonly string[], stats: BgsStats): BgsHeroSelectionOverview {
-		const heroOverview: readonly BgsHeroOverview[] = heroCardIds.map(heroCardId =>
-			this.buildHeroOverview(heroCardId, stats),
+		const heroOverview: readonly BgsHeroOverview[] = stats.heroStats.map(stat =>
+			BgsHeroOverview.create({
+				heroCardId: stat.id,
+				name: stat.name,
+				globalAveragePosition: stat.averagePosition,
+				globalPopularity: stat.popularity,
+				ownAveragePosition: stat.playerAveragePosition,
+				ownPopularity: stat.playerPopularity,
+				ownGamesPlayed: stat.playerGamesPlayed,
+				tribesStat: stat.tribesStat,
+				warbandStats: stat.warbandStats,
+			}),
 		);
 		return BgsHeroSelectionOverview.create({
 			heroOverview: heroOverview,
+			heroOptionCardIds: heroCardIds,
 		} as BgsHeroSelectionOverview);
 	}
 
-	private buildHeroOverview(heroCardId: string, stats: BgsStats): BgsHeroOverview {
-		const stat = stats.heroStats.find(heroStat => heroStat.id === heroCardId);
-		return BgsHeroOverview.create({
-			heroCardId: heroCardId,
-			name: stat.name,
-			globalAveragePosition: stat.averagePosition,
-			globalPopularity: stat.popularity,
-			ownAveragePosition: stat.playerAveragePosition,
-			ownPopularity: stat.playerPopularity,
-			ownGamesPlayed: stat.playerGamesPlayed,
-			tribesStat: stat.tribesStat,
-			warbandStats: stat.warbandStats,
-		});
-	}
+	// private buildHeroOverview(heroCardId: string, stats: BgsStats): BgsHeroOverview {
+	// 	const stat = stats.heroStats.find(heroStat => heroStat.id === heroCardId);
+	// 	return BgsHeroOverview.create({
+	// 		heroCardId: heroCardId,
+	// 		name: stat.name,
+	// 		globalAveragePosition: stat.averagePosition,
+	// 		globalPopularity: stat.popularity,
+	// 		ownAveragePosition: stat.playerAveragePosition,
+	// 		ownPopularity: stat.playerPopularity,
+	// 		ownGamesPlayed: stat.playerGamesPlayed,
+	// 		tribesStat: stat.tribesStat,
+	// 		warbandStats: stat.warbandStats,
+	// 	});
+	// }
 }

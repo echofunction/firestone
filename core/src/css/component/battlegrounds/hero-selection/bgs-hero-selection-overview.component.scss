@@ -2,6 +2,39 @@
 	display: flex;
 }
 
+.container {
+	display: flex;
+}
+
+.left {
+	width: 410px;
+	height: fit-content;
+	flex-shrink: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+
+	bgs-hero-mini {
+		width: 60px;
+		height: 50px;
+		position: relative;
+		flex-grow: 0;
+		flex-shrink: 0;
+		display: flex;
+		filter: grayscale(1);
+		opacity: 0.8;
+
+		&.available {
+			filter: none;
+		}
+		&:hover {
+			filter: none;
+			opacity: 1;
+		}
+	}
+}
+
 .hero-selection-overview {
 	display: flex;
 	flex-grow: 1;

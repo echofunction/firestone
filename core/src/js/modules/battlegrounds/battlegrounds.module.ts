@@ -12,6 +12,7 @@ import { ChartsModule } from 'ng2-charts';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { BattlegroundsContentComponent } from '../../components/battlegrounds/battlegrounds-content.component';
 import { BattlegroundsComponent } from '../../components/battlegrounds/battlegrounds.component';
+import { BgsHeroMiniComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-mini.component';
 import { BgsHeroOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-overview.component';
 import { BgsHeroSelectionOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-selection-overview.component';
 import { BgsHeroWarbandStatsComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-warband-stats.component';
@@ -63,6 +64,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		BgsHeroWarbandStatsComponent,
 		BgsNextOpponentOverviewComponent,
 		BgsPostMatchStatsComponent,
+		BgsHeroMiniComponent,
 	],
 	bootstrap: [BattlegroundsComponent],
 	providers: [AdService],

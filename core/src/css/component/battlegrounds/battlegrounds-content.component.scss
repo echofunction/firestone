@@ -8,7 +8,8 @@
 	width: 410px;
 	display: flex;
 	flex-direction: column;
-	height: calc(100% - 325px);
+	// height: calc(100% - 325px);
+	position: absolute;
 	flex-shrink: 0;
 
 	.navigation {

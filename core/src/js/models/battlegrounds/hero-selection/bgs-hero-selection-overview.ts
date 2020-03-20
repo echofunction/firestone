@@ -7,6 +7,7 @@ export class BgsHeroSelectionOverview implements BgsPanel {
 	readonly name: string = 'Heroes Overview';
 	readonly icon: string;
 	readonly heroOverview: readonly BgsHeroOverview[];
+	readonly heroOptionCardIds: readonly string[];
 
 	public static create(base: BgsHeroSelectionOverview): BgsHeroSelectionOverview {
 		return Object.assign(new BgsHeroSelectionOverview(), base);

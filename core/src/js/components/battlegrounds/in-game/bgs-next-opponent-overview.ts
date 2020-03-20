@@ -68,6 +68,9 @@ export class BgsNextOpponentOverviewComponent {
 		}
 		const opponent = this._game.players.find(player => player.cardId === this._panel.opponentOverview.cardId);
 		console.log('found opponent', opponent, this._panel, this._game);
+		if (!opponent) {
+			return;
+		}
 		this.name = opponent.name;
 		this.tavernTier = '' + opponent.getCurrentTavernTier();
 		this.boardMinions = opponent.getLastKnownBoardState();
