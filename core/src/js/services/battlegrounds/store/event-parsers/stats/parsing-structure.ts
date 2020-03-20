@@ -1,6 +1,9 @@
 import { Map } from 'immutable';
+import { NumericTurnInfo } from '../../../../../models/battlegrounds/post-match/numeric-turn-info';
 
 export interface ParsingStructure {
+	currentTurn: number;
+
 	entities: {
 		[cardId: string]: {
 			cardId: string;
@@ -9,12 +12,25 @@ export interface ParsingStructure {
 			zone: number;
 			zonePosition: number;
 			cardType: number;
+			atk: number;
+			health: number;
 		};
 	};
-	currentTurn: number;
-	boardOverTurn: Map<number, readonly { cardId: string; tribe: number }[]>;
-	rerollOverTurn: Map<number, number>;
-	hpOverTurn: Map<number, number>;
+	playerHps: {
+		[cardId: string]: number;
+	};
+	leaderboardPositions: {
+		[cardId: string]: number;
+	};
 	rerollsIds: string[];
 	rerollsForTurn: number;
+	minionsSoldIds: string[];
+	minionsSoldForTurn: number;
+
+	boardOverTurn: Map<number, readonly { cardId: string; tribe: number }[]>;
+	rerollOverTurn: Map<number, number>;
+	minionsSoldOverTurn: Map<number, number>;
+	totalStatsOverTurn: Map<number, number>;
+	hpOverTurn: { [playerCardId: string]: readonly NumericTurnInfo[] };
+	leaderboardPositionOverTurn: { [playerCardId: string]: readonly NumericTurnInfo[] };
 }

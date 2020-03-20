@@ -9,6 +9,7 @@ import { GameEventsEmitterService } from '../../game-events-emitter.service';
 import { OverwolfService } from '../../overwolf.service';
 import { ProcessingQueue } from '../../processing-queue.service';
 import { BattlegroundsResetBattleStateParser } from './event-parsers/battlegrounds-reset-battle-state-parser';
+import { BgsGameEndParser } from './event-parsers/bgs-game-end-parser';
 import { BgsHeroSelectedParser } from './event-parsers/bgs-hero-selected-parser';
 import { BgsHeroSelectionDoneParser } from './event-parsers/bgs-hero-selection-done-parser';
 import { BgsHeroSelectionParser } from './event-parsers/bgs-hero-selection-parser';
@@ -21,6 +22,7 @@ import { BgsTavernUpgradeParser } from './event-parsers/bgs-tavern-upgrade-parse
 import { BgsTripleCreatedParser } from './event-parsers/bgs-triple-created-parser';
 import { BgsTurnStartParser } from './event-parsers/bgs-turn-start-parser';
 import { EventParser } from './event-parsers/_event-parser';
+import { BgsGameEndEvent } from './events/bgs-game-end-event';
 import { BgsHeroSelectedEvent } from './events/bgs-hero-selected-event';
 import { BgsHeroSelectionDoneEvent } from './events/bgs-hero-selection-done-event';
 import { BgsHeroSelectionEvent } from './events/bgs-hero-selection-event';
@@ -79,10 +81,10 @@ export class BattlegroundsStoreService {
 				this.battlegroundsUpdater.next(new BgsNextOpponentEvent(gameEvent.additionalData.nextOpponentCardId));
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_OPPONENT_REVEALED) {
 				this.battlegroundsUpdater.next(new BgsOpponentRevealedEvent(gameEvent.additionalData.cardId));
-			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_COMBAT_START) {
+			} else if (gameEvent.type === GameEvent.TURN_START) {
 				console.log('ready to update turn', this.state);
 				// We use this instead of TURN_START so that we only have the combat phase, instead of both turns
-				this.battlegroundsUpdater.next(new BgsTurnStartEvent());
+				this.battlegroundsUpdater.next(new BgsTurnStartEvent(gameEvent.additionalData.turnNumber));
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_TAVERN_UPGRADE) {
 				this.battlegroundsUpdater.next(
 					new BgsTavernUpgradeEvent(gameEvent.additionalData.cardId, gameEvent.additionalData.tavernLevel),
@@ -141,7 +143,8 @@ export class BattlegroundsStoreService {
 			await this.ow.obtainDeclaredWindow(OverwolfService.BATTLEGROUNDS_WINDOW);
 			await this.ow.restoreWindow(OverwolfService.BATTLEGROUNDS_WINDOW);
 		} else if (battlegroundsWindow.window_state_ex !== 'closed' && (!shouldShowOverlay || !inGame)) {
-			await this.ow.closeWindow(OverwolfService.BATTLEGROUNDS_WINDOW);
+			console.log('[bgs-store] closing overlay', shouldShowOverlay, inGame);
+			// await this.ow.closeWindow(OverwolfService.BATTLEGROUNDS_WINDOW);
 		}
 	}
 
@@ -159,6 +162,7 @@ export class BattlegroundsStoreService {
 			new BgsOpponentRevealedParser(this.allCards),
 			new BgsTurnStartParser(),
 			new BgsMatchStartParser(),
+			new BgsGameEndParser(),
 		];
 	}
 }

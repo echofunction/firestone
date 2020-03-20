@@ -13,7 +13,7 @@ export class BgsTurnStartParser implements EventParser {
 		console.log('updating turn', currentState);
 		return currentState.update({
 			currentGame: currentState.currentGame.update({
-				currentTurn: currentState.currentGame.currentTurn + 1,
+				currentTurn: Math.ceil(event.turnNumber / 2),
 			} as BgsGame),
 		} as BattlegroundsState);
 	}

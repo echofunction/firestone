@@ -13,18 +13,19 @@ export class BgsPostMatchStats {
 
 	readonly compositionsOverTurn: readonly BgsCompositionForTurn[];
 	readonly rerollsOverTurn: readonly NumericTurnInfo[];
-	readonly hpOverTurn: readonly NumericTurnInfo[];
-	readonly leaderboardPositionOverTurn: readonly NumericTurnInfo[];
+	readonly hpOverTurn: { [playerCardId: string]: readonly NumericTurnInfo[] };
+	readonly leaderboardPositionOverTurn: { [playerCardId: string]: readonly NumericTurnInfo[] };
 	readonly totalStatsOverTurn: readonly NumericTurnInfo[];
 
-	readonly minionsKilled: number;
-	readonly heroesTakenDown: number;
-	readonly minionsBought: number;
-	readonly minionsSold: number;
-	readonly heroPowersUsed: number;
-	readonly freezes: number;
+	readonly minionsSoldOverTurn: readonly NumericTurnInfo[];
+	// readonly minionsKilled: number;
+	// readonly heroesTakenDown: number;
+	// readonly minionsBought: number;
+	// readonly minionsSold: number;
+	// readonly heroPowersUsed: number;
+	// readonly freezes: number;
 
-	readonly percentageOfGoingFirst: number;
+	// readonly percentageOfGoingFirst: number;
 
 	public static create(base: BgsPostMatchStats): BgsPostMatchStats {
 		return Object.assign(new BgsPostMatchStats(), base);
