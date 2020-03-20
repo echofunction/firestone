@@ -6,6 +6,8 @@ import { BgsHeroSelectionOverview } from '../../../../models/battlegrounds/hero-
 import { BgsHeroSelectionStage } from '../../../../models/battlegrounds/hero-selection/bgs-hero-selection-stage';
 import { BgsInGameStage } from '../../../../models/battlegrounds/in-game/bgs-in-game-stage';
 import { BgsNextOpponentOverviewPanel } from '../../../../models/battlegrounds/in-game/bgs-next-opponent-overview-panel';
+import { BgsPostMatchStage } from '../../../../models/battlegrounds/post-match/bgs-post-match-stage';
+import { BgsPostMatchStatsPanel } from '../../../../models/battlegrounds/post-match/bgs-post-match-stats-panel';
 import { BgsInitEvent } from '../events/bgs-init-event';
 import { BattlegroundsStoreEvent } from '../events/_battlegrounds-store-event';
 import { EventParser } from './_event-parser';
@@ -16,7 +18,11 @@ export class BgsInitParser implements EventParser {
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsInitEvent): Promise<BattlegroundsState> {
-		const stages: readonly BgsStage[] = [this.buildHeroSelectionStage(), this.buildInGameStage()];
+		const stages: readonly BgsStage[] = [
+			this.buildHeroSelectionStage(),
+			this.buildInGameStage(),
+			this.buildPostMatchStage(),
+		];
 		return BattlegroundsState.create({
 			globalStats: event.bgsGlobalStats,
 			stages: stages,
@@ -50,5 +56,18 @@ export class BgsInitParser implements EventParser {
 		return BgsNextOpponentOverviewPanel.create({
 			opponentOverview: null,
 		} as BgsNextOpponentOverviewPanel);
+	}
+
+	private buildPostMatchStage(): BgsPostMatchStage {
+		const panels: readonly BgsPanel[] = [this.buildBgsPostMatchStatsPanel()];
+		return BgsPostMatchStage.create({
+			panels: panels,
+		} as BgsPostMatchStage);
+	}
+
+	private buildBgsPostMatchStatsPanel(): BgsPostMatchStatsPanel {
+		return BgsPostMatchStatsPanel.create({
+			stats: null,
+		} as BgsPostMatchStatsPanel);
 	}
 }

@@ -16,6 +16,7 @@ import { BgsHeroOverviewComponent } from '../../components/battlegrounds/hero-se
 import { BgsHeroSelectionOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-selection-overview.component';
 import { BgsHeroWarbandStatsComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-warband-stats.component';
 import { BgsNextOpponentOverviewComponent } from '../../components/battlegrounds/in-game/bgs-next-opponent-overview';
+import { BgsPostMatchStatsComponent } from '../../components/battlegrounds/post-match/bgs-post-match-stats';
 import { AdService } from '../../services/ad.service';
 import { SharedServicesModule } from '../shared-services/shared-services.module';
 import { SharedModule } from '../shared/shared.module';
@@ -61,6 +62,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		BgsHeroOverviewComponent,
 		BgsHeroWarbandStatsComponent,
 		BgsNextOpponentOverviewComponent,
+		BgsPostMatchStatsComponent,
 	],
 	bootstrap: [BattlegroundsComponent],
 	providers: [AdService],
