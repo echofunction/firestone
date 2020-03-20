@@ -133,7 +133,8 @@ export class GroupedDeckListComponent {
 		}
 		const sortingFunction = this._cardsGoToBottom
 			? (a: VisualDeckCard, b: VisualDeckCard) => this.sortOrder(a) - this.sortOrder(b) || a.manaCost - b.manaCost
-			: (a: VisualDeckCard, b: VisualDeckCard) => a.manaCost - b.manaCost;
+			: null;
+		// console.log('sorting function', this._cardsGoToBottom, sortingFunction);
 		this.zone = {
 			id: 'single-zone',
 			name: undefined,
