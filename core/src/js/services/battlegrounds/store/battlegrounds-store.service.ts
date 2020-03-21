@@ -9,6 +9,7 @@ import { GameEventsEmitterService } from '../../game-events-emitter.service';
 import { OverwolfService } from '../../overwolf.service';
 import { ProcessingQueue } from '../../processing-queue.service';
 import { BattlegroundsResetBattleStateParser } from './event-parsers/battlegrounds-reset-battle-state-parser';
+import { BgsBattleResultParser } from './event-parsers/bgs-battle-result-parser';
 import { BgsGameEndParser } from './event-parsers/bgs-game-end-parser';
 import { BgsHeroSelectedParser } from './event-parsers/bgs-hero-selected-parser';
 import { BgsHeroSelectionDoneParser } from './event-parsers/bgs-hero-selection-done-parser';
@@ -23,6 +24,7 @@ import { BgsTavernUpgradeParser } from './event-parsers/bgs-tavern-upgrade-parse
 import { BgsTripleCreatedParser } from './event-parsers/bgs-triple-created-parser';
 import { BgsTurnStartParser } from './event-parsers/bgs-turn-start-parser';
 import { EventParser } from './event-parsers/_event-parser';
+import { BgsBattleResultEvent } from './events/bgs-battle-result-event';
 import { BgsGameEndEvent } from './events/bgs-game-end-event';
 import { BgsHeroSelectedEvent } from './events/bgs-hero-selected-event';
 import { BgsHeroSelectionDoneEvent } from './events/bgs-hero-selection-done-event';
@@ -83,8 +85,6 @@ export class BattlegroundsStoreService {
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_OPPONENT_REVEALED) {
 				this.battlegroundsUpdater.next(new BgsOpponentRevealedEvent(gameEvent.additionalData.cardId));
 			} else if (gameEvent.type === GameEvent.TURN_START) {
-				console.log('ready to update turn', this.state);
-				// We use this instead of TURN_START so that we only have the combat phase, instead of both turns
 				this.battlegroundsUpdater.next(new BgsTurnStartEvent(gameEvent.additionalData.turnNumber));
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_TAVERN_UPGRADE) {
 				this.battlegroundsUpdater.next(
@@ -96,6 +96,14 @@ export class BattlegroundsStoreService {
 						gameEvent.additionalData.cardId,
 						gameEvent.additionalData.board,
 						gameEvent.additionalData.hero,
+					),
+				);
+			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_BATTLE_RESULT) {
+				this.battlegroundsUpdater.next(
+					new BgsBattleResultEvent(
+						gameEvent.additionalData.opponent,
+						gameEvent.additionalData.result,
+						gameEvent.additionalData.damage,
 					),
 				);
 				// } else if (gameEvent.type === GameEvent.BATTLEGROUNDS_COMBAT_START) {
@@ -165,6 +173,7 @@ export class BattlegroundsStoreService {
 			new BgsMatchStartParser(),
 			new BgsGameEndParser(),
 			new BgsStageChangeParser(),
+			new BgsBattleResultParser(),
 		];
 	}
 }

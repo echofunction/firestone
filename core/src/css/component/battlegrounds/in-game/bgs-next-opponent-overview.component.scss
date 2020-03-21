@@ -1,3 +1,25 @@
+.container {
+	display: flex;
+}
+
+.left {
+	width: 410px;
+	height: fit-content;
+	flex-shrink: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+bgs-hero-face-off {
+	width: 105px;
+	position: relative;
+	flex-grow: 0;
+	flex-shrink: 0;
+	display: flex;
+}
+
 .next-opponent-overview {
 	display: flex;
 	flex-direction: column;

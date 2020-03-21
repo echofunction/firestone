@@ -16,6 +16,7 @@ import { BgsHeroMiniComponent } from '../../components/battlegrounds/hero-select
 import { BgsHeroOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-overview.component';
 import { BgsHeroSelectionOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-selection-overview.component';
 import { BgsHeroWarbandStatsComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-warband-stats.component';
+import { BgsHeroFaceOffComponent } from '../../components/battlegrounds/in-game/bgs-hero-face-off.component';
 import { BgsNextOpponentOverviewComponent } from '../../components/battlegrounds/in-game/bgs-next-opponent-overview';
 import { BgsPostMatchStatsComponent } from '../../components/battlegrounds/post-match/bgs-post-match-stats';
 import { AdService } from '../../services/ad.service';
@@ -65,6 +66,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		BgsNextOpponentOverviewComponent,
 		BgsPostMatchStatsComponent,
 		BgsHeroMiniComponent,
+		BgsHeroFaceOffComponent,
 	],
 	bootstrap: [BattlegroundsComponent],
 	providers: [AdService],

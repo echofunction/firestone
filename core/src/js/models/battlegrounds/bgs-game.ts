@@ -1,8 +1,10 @@
+import { BgsFaceOff } from './bgs-face-off';
 import { BgsPlayer } from './bgs-player';
 
 export class BgsGame {
 	readonly players: readonly BgsPlayer[] = [];
 	readonly currentTurn: number = 1;
+	readonly faceOffs: readonly BgsFaceOff[] = [];
 
 	public static create(base: BgsGame): BgsGame {
 		return Object.assign(new BgsGame(), base);
