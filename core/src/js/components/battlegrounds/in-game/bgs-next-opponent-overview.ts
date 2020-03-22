@@ -52,6 +52,16 @@ declare var amplitude: any;
 								Turn {{ triple.turn }}: One tier {{ triple.tierOfTripledMinion }} triple
 							</div>
 						</div>
+						<div class="next-battle" *ngIf="opponentInfo.nextBattle">
+							<div class="win-chance">
+								Chances to win: {{ opponentInfo.nextBattle.wonPercent.toFixed(1) }} (for
+								{{ opponentInfo.nextBattle.averageDamageWon.toFixed(1) }} damage)
+							</div>
+							<div class="loss-chance">
+								Chances to lose: {{ opponentInfo.nextBattle.lostPercent.toFixed(1) }} (for
+								{{ opponentInfo.nextBattle.averageDamageLost.toFixed(1) }} damage)
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -101,7 +111,7 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 			// console.log('boardContainer', boardContainer, rect);
 			// const constrainedByWidth = rect.width <
 			const cardElements = boardContainer.querySelectorAll('li');
-			// console.log('cardElements', cardElements);
+			// 	console.log('cardElements', cardElements);
 			let cardWidth = rect.width / 8;
 			let cardHeight = 1.48 * cardWidth;
 			if (cardHeight > rect.height) {
@@ -136,6 +146,7 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 						tavernUpgrades: [...opponent.tavernUpgradeHistory].reverse(),
 						triples: [...opponent.tripleHistory].reverse(),
 						displayBody: opponent.cardId === this._panel.opponentOverview.cardId,
+						nextBattle: opponent.cardId === this._panel.opponentOverview.cardId && this._game.battleResult,
 					} as OpponentInfo),
 			)
 			.sort((a, b) =>
@@ -172,4 +183,13 @@ interface OpponentInfo {
 	tavernUpgrades: readonly BgsTavernUpgrade[];
 	triples: readonly BgsTriple[];
 	displayBody: boolean;
+	nextBattle: BattleResult;
+}
+
+interface BattleResult {
+	wonPercent: number;
+	tiedPercent: number;
+	lostPercent: number;
+	averageDamageWon: number;
+	averageDamageLost: number;
 }
