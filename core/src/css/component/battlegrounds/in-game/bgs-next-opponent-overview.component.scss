@@ -1,6 +1,7 @@
 .container {
 	display: flex;
 	height: 100%;
+	flex-grow: 1;
 }
 
 .left {
@@ -27,6 +28,12 @@ bgs-hero-face-off {
 	flex-grow: 1;
 	flex-shrink: 1;
 	width: calc(100% - 410px);
+	min-height: 0;
+	overflow: auto;
+	// So that the divine shields are the top are not truncated
+	padding-top: 20px;
+	position: relative;
+	top: -20px;
 }
 
 .next-opponent-overview {
