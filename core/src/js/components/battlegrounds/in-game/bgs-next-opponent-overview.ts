@@ -54,12 +54,12 @@ declare var amplitude: any;
 						</div>
 						<div class="next-battle" *ngIf="opponentInfo.nextBattle">
 							<div class="win-chance">
-								Chances to win: {{ opponentInfo.nextBattle.wonPercent.toFixed(1) }} (for
-								{{ opponentInfo.nextBattle.averageDamageWon.toFixed(1) }} damage)
+								Chances to win: {{ opponentInfo.nextBattle.wonPercent?.toFixed(1) }} (for
+								{{ opponentInfo.nextBattle.averageDamageWon?.toFixed(1) }} damage)
 							</div>
 							<div class="loss-chance">
-								Chances to lose: {{ opponentInfo.nextBattle.lostPercent.toFixed(1) }} (for
-								{{ opponentInfo.nextBattle.averageDamageLost.toFixed(1) }} damage)
+								Chances to lose: {{ opponentInfo.nextBattle.lostPercent?.toFixed(1) }} (for
+								{{ opponentInfo.nextBattle.averageDamageLost?.toFixed(1) }} damage)
 							</div>
 						</div>
 					</div>
@@ -93,7 +93,9 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 	) {}
 
 	async ngAfterViewInit() {
-		this.onResize();
+		setTimeout(() => {
+			this.onResize();
+		}, 100);
 	}
 
 	toggleDisplayBody(opponentInfo: OpponentInfo) {
@@ -171,6 +173,9 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 						.filter(faceOff => faceOff.result === 'lost').length,
 				} as OpponentFaceOff),
 		);
+		setTimeout(() => {
+			this.onResize();
+		}, 100);
 	}
 }
 

@@ -18,16 +18,14 @@ export class BgsInitParser implements EventParser {
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsInitEvent): Promise<BattlegroundsState> {
-		const stages: readonly BgsStage[] = [
+		const emptyStages: readonly BgsStage[] = [
 			this.buildHeroSelectionStage(),
 			this.buildInGameStage(),
 			this.buildPostMatchStage(),
 		];
-		return BattlegroundsState.create({
+		return currentState.update({
 			globalStats: event.bgsGlobalStats,
-			stages: stages,
-			currentStageId: undefined,
-			currentPanelId: undefined,
+			stages: currentState.stages || emptyStages,
 		} as BattlegroundsState);
 	}
 

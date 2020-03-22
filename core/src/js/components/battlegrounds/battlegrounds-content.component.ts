@@ -94,7 +94,7 @@ export class BattlegroundsContentComponent implements AfterViewInit {
 					value: stage.id,
 				} as IOption),
 		);
-		this.activeFilter = this.currentStage.id;
+		this.activeFilter = this.currentStage?.id;
 
 		this.filterChangeFunction = (option: IOption) =>
 			this.battlegroundsUpdater.next(new BgsStageChangeEvent(option.value as BgsStageId));
