@@ -5,7 +5,6 @@ import { AchievementsVideoCaptureService } from './achievement/achievements-vide
 import { AchievementsLoaderService } from './achievement/data/achievements-loader.service';
 import { AchievementsLocalDbService as AchievementsDb } from './achievement/indexed-db.service';
 import { RemoteAchievementsService } from './achievement/remote-achievements.service';
-import { BgsBattleSimulationService } from './battlegrounds/bgs-battle-simulation.service';
 import { BgsInitService } from './battlegrounds/bgs-init.service';
 import { BattlegroundsStoreService } from './battlegrounds/store/battlegrounds-store.service';
 // import { BattlegroundsStateService } from './battlegrounds/old/battlegrounds-state.service';
@@ -79,7 +78,7 @@ export class AppBootstrapService {
 		private init_GameStatsBootstrapService: GameStatsBootstrapService,
 		private init_GlobalStatsBootstrapService: GlobalStatsBootstrapService,
 		private init_BgsStoreService: BattlegroundsStoreService,
-		private init_bgsBattleService: BgsBattleSimulationService,
+		// private init_bgsBattleService: BgsBattleSimulationService,
 		private init_BgsInitService: BgsInitService,
 	) {}
 

@@ -33,7 +33,7 @@ export class BgsPlayer {
 		return this.boardHistory.length === 0 ? [] : this.boardHistory[this.boardHistory.length - 1].board;
 	}
 
-	private buildBgsEntities(logEntities: readonly any[]): readonly BoardEntity[] {
+	public buildBgsEntities(logEntities: readonly any[]): readonly BoardEntity[] {
 		return logEntities.map(entity => this.buildBgsEntity(entity));
 	}
 
