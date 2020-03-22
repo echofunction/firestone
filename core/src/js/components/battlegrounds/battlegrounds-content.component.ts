@@ -87,7 +87,7 @@ export class BattlegroundsContentComponent implements AfterViewInit {
 		this._state = value;
 		this.currentStage = value?.stages?.find(stage => stage.id === value.currentStageId);
 		this.currentPanel = this.currentStage?.panels?.find(panel => panel.id === value.currentPanelId);
-		this.filterOptions = value.stages.map(
+		this.filterOptions = value?.stages?.map(
 			stage =>
 				({
 					label: stage.name,
