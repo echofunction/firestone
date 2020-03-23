@@ -5,6 +5,7 @@ import {
 	Component,
 	EventEmitter,
 	Input,
+	ViewRef,
 } from '@angular/core';
 import { AllCardsService } from '@firestone-hs/replay-parser';
 import { IOption } from 'ng-select';
@@ -100,6 +101,9 @@ export class BattlegroundsContentComponent implements AfterViewInit {
 			this.battlegroundsUpdater.next(new BgsStageChangeEvent(option.value as BgsStageId));
 
 		console.log('setting state', value, this.currentStage, this.currentPanel);
+		if (!(this.cdr as ViewRef).destroyed) {
+			this.cdr.detectChanges();
+		}
 	}
 
 	private battlegroundsUpdater: EventEmitter<BattlegroundsStoreEvent>;

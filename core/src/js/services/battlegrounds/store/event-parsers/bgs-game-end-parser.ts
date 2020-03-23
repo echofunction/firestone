@@ -27,6 +27,8 @@ export class BgsGameEndParser implements EventParser {
 		);
 		return currentState.update({
 			stages: stages,
+			currentStageId: 'post-match',
+			currentPanelId: 'bgs-post-match-stats',
 		} as BattlegroundsState);
 	}
 

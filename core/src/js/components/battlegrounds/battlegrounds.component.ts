@@ -63,12 +63,12 @@ export class BattlegroundsComponent implements AfterViewInit, OnDestroy {
 	async ngAfterViewInit() {
 		this.cdr.detach();
 		this.windowId = (await this.ow.getCurrentWindow()).id;
-		console.log('windowId', this.windowId);
+		// console.log('windowId', this.windowId);
 		this.stateChangedListener = this.ow.addStateChangedListener(OverwolfService.BATTLEGROUNDS_WINDOW, message => {
-			console.log('received battlegrounds window message', message, this.isMaximized);
+			// console.log('received battlegrounds window message', message, this.isMaximized);
 			// If hidden, restore window to as it was
 			if (message.window_previous_state_ex === 'hidden') {
-				console.log('window was previously hidden, keeping the previosu state', this.isMaximized);
+				// console.log('window was previously hidden, keeping the previosu state', this.isMaximized);
 			} else if (message.window_state === 'maximized') {
 				this.isMaximized = true;
 			} else if (message.window_state !== 'minimized') {
@@ -79,12 +79,14 @@ export class BattlegroundsComponent implements AfterViewInit, OnDestroy {
 		const storeBus: BehaviorSubject<BattlegroundsState> = this.ow.getMainWindow().battlegroundsStore;
 		// console.log('retrieved storeBus');
 		this.storeSubscription = storeBus.subscribe((newState: BattlegroundsState) => {
-			// First update the state before restoring the window
-			// console.log('received state', newState);
-			this.state = newState;
-			console.log('received state', this.state);
-			if (!(this.cdr as ViewRef).destroyed) {
-				this.cdr.detectChanges();
+			try {
+				this.state = newState;
+				console.log('received state', this.state);
+				if (!(this.cdr as ViewRef).destroyed) {
+					this.cdr.detectChanges();
+				}
+			} catch (e) {
+				console.error('Exception while handling new state', e);
 			}
 		});
 		this.positionWindowOnSecondScreen();
@@ -92,7 +94,7 @@ export class BattlegroundsComponent implements AfterViewInit, OnDestroy {
 
 	@HostListener('mousedown')
 	dragMove() {
-		console.log('moving?', this.isMaximized);
+		// console.log('moving?', this.isMaximized);
 		if (!this.isMaximized) {
 			this.ow.dragMove(this.windowId);
 		}
@@ -100,7 +102,6 @@ export class BattlegroundsComponent implements AfterViewInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.ow.removeStateChangedListener(this.stateChangedListener);
-		// this.ow.removeMessageReceivedListener(this.messageReceivedListener);
 		this.storeSubscription.unsubscribe();
 	}
 

@@ -148,6 +148,7 @@ export class BattlegroundsStoreService {
 					this.state = await parser.parse(this.state, gameEvent);
 					console.log('updated state', gameEvent.type, this.state, gameEvent);
 					this.battlegroundsStoreEventBus.next(this.state);
+					// this.battlegroundsStoreEventBus.
 					this.updateOverlay();
 				}
 			} catch (e) {
@@ -164,6 +165,7 @@ export class BattlegroundsStoreService {
 		if (inGame && shouldShowOverlay && battlegroundsWindow.window_state_ex === 'closed') {
 			await this.ow.obtainDeclaredWindow(OverwolfService.BATTLEGROUNDS_WINDOW);
 			await this.ow.restoreWindow(OverwolfService.BATTLEGROUNDS_WINDOW);
+			await this.ow.bringToFront(OverwolfService.BATTLEGROUNDS_WINDOW);
 		} else if (battlegroundsWindow.window_state_ex !== 'closed' && (!shouldShowOverlay || !inGame)) {
 			console.log('[bgs-store] closing overlay', shouldShowOverlay, inGame);
 			// await this.ow.closeWindow(OverwolfService.BATTLEGROUNDS_WINDOW);

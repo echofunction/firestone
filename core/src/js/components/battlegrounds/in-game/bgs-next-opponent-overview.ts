@@ -128,7 +128,7 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 	}
 
 	private updateInfo() {
-		if (!this._panel || !this._game) {
+		if (!this._panel || !this._game || !this._panel.opponentOverview) {
 			return;
 		}
 		const nextOpponent = this._game.players.find(player => player.cardId === this._panel.opponentOverview.cardId);
