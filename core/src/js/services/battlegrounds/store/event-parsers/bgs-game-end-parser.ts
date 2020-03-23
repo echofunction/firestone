@@ -63,7 +63,6 @@ export class BgsGameEndParser implements EventParser {
 			compositionsOverTurn: structure.compositionsOverTurn,
 			rerollsOverTurn: structure.rerollsOverTurn,
 			hpOverTurn: structure.hpOverTurn,
-			leaderboardPositionOverTurn: structure.leaderboardPositionOverTurn,
 			totalStatsOverTurn: structure.totalStatsOverTurn,
 			minionsSoldOverTurn: structure.minionsSoldOverTurn,
 		} as BgsPostMatchStats);

@@ -13,7 +13,6 @@ export const reparseReplay = (
 	rerollsOverTurn: readonly NumericTurnInfo[];
 	minionsSoldOverTurn: readonly NumericTurnInfo[];
 	hpOverTurn: { [playerCardId: string]: readonly NumericTurnInfo[] };
-	leaderboardPositionOverTurn: { [playerCardId: string]: readonly NumericTurnInfo[] };
 	totalStatsOverTurn: readonly NumericTurnInfo[];
 } => {
 	const opponentPlayerElement = replay.replay
@@ -118,8 +117,6 @@ export const reparseReplay = (
 		.valueSeq()
 		.toArray();
 	const hpOverTurn: { [playerCardId: string]: readonly NumericTurnInfo[] } = structure.hpOverTurn;
-	const leaderboardPositionOverTurn: { [playerCardId: string]: readonly NumericTurnInfo[] } =
-		structure.leaderboardPositionOverTurn;
 	const totalStatsOverTurn: readonly NumericTurnInfo[] = structure.totalStatsOverTurn
 		.map((stats: number, turn: number) => {
 			return {
@@ -134,7 +131,6 @@ export const reparseReplay = (
 		rerollsOverTurn: rerollsOverTurn,
 		minionsSoldOverTurn: minionsSoldOverTurn,
 		hpOverTurn: hpOverTurn,
-		leaderboardPositionOverTurn: leaderboardPositionOverTurn,
 		totalStatsOverTurn: totalStatsOverTurn,
 	};
 };
