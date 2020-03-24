@@ -11,4 +11,8 @@ export class BgsPostMatchStage implements BgsStage {
 	public static create(base: BgsPostMatchStage): BgsPostMatchStage {
 		return Object.assign(new BgsPostMatchStage(), base);
 	}
+
+	public update(base: BgsPostMatchStage): BgsPostMatchStage {
+		return Object.assign(new BgsPostMatchStage(), this, base);
+	}
 }

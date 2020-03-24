@@ -21,6 +21,7 @@ import { BgsMatchStartParser } from './event-parsers/bgs-match-start-parser';
 import { BgsNextOpponentParser } from './event-parsers/bgs-next-opponent-parser';
 import { BgsOpponentRevealedParser } from './event-parsers/bgs-opponent-revealed-parser';
 import { BgsPlayerBoardParser } from './event-parsers/bgs-player-board-parser';
+import { BgsPostMatchStatsFilterChangeParser } from './event-parsers/bgs-post-match-stats-filter-change-parser';
 import { BgsResetBattleStateParser } from './event-parsers/bgs-reset-battle-state-parser';
 import { BgsStageChangeParser } from './event-parsers/bgs-stage-change-parser';
 import { BgsTavernUpgradeParser } from './event-parsers/bgs-tavern-upgrade-parser';
@@ -191,6 +192,7 @@ export class BattlegroundsStoreService {
 			new BgsBattleResultParser(),
 			new BgsResetBattleStateParser(),
 			new BgsBattleSimulationParser(),
+			new BgsPostMatchStatsFilterChangeParser(),
 		];
 	}
 }

@@ -37,57 +37,13 @@ bgs-hero-face-off {
 	top: -20px;
 }
 
-.next-opponent-overview {
+.subtitle {
+	flex-grow: 0;
+	flex-shrink: 0;
+	height: 40px;
+	color: var(--default-title-color);
+	font-size: 16px;
 	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	flex-shrink: 1;
-
-	.header {
-		display: flex;
-		flex-direction: row;
-		// height: 40%;
-	}
-
-	.portrait {
-		height: 100%;
-		flex-grow: 0;
-		flex-shrink: 0;
-		display: flex;
-		flex-direction: column;
-		width: 15%;
-	}
-
-	.icon {
-		width: 100%;
-	}
-
-	board {
-		position: relative;
-		flex-grow: 1;
-		flex-shrink: 1;
-		margin-left: 5%;
-		width: 80%;
-	}
-
-	::ng-deep board {
-		// .board li {
-		// 	width: 11%;
-		// }
-		board-card-stats .stat {
-			color: #fff;
-		}
-	}
-
-	.body {
-		margin-top: 25px;
-		display: flex;
-	}
-}
-
-.tavern-upgrades,
-.triple-tiers {
-	display: flex;
-	flex-direction: column;
-	margin-right: 10%;
+	align-items: center;
+	justify-content: center;
 }

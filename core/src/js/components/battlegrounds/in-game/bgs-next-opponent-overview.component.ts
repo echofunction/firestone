@@ -7,14 +7,11 @@ import {
 	HostListener,
 	Input,
 	Renderer2,
-	ViewRef,
 } from '@angular/core';
-import { Entity } from '@firestone-hs/replay-parser';
 import { BgsGame } from '../../../models/battlegrounds/bgs-game';
 import { BgsNextOpponentOverviewPanel } from '../../../models/battlegrounds/in-game/bgs-next-opponent-overview-panel';
-import { BgsTavernUpgrade } from '../../../models/battlegrounds/in-game/bgs-tavern-upgrade';
-import { BgsTriple } from '../../../models/battlegrounds/in-game/bgs-triple';
 import { OpponentFaceOff } from './opponent-face-off';
+import { OpponentInfo } from './opponent-info';
 
 declare var amplitude: any;
 
@@ -30,40 +27,13 @@ declare var amplitude: any;
 			<div class="left">
 				<bgs-hero-face-off *ngFor="let faceOff of opponentFaceOffs" [faceOff]="faceOff"></bgs-hero-face-off>
 			</div>
-			<div class="content">
-				<div class="next-opponent-overview" *ngFor="let opponentInfo of opponentInfos">
-					<div class="header" (click)="toggleDisplayBody(opponentInfo)">
-						<div class="portrait">
-							<img [src]="opponentInfo.icon" class="icon" />
-							<div class="name">{{ opponentInfo.name }}</div>
-							<!-- <img [src]="taverTierIcon" class="tavern-tier" /> -->
-							<div class="tavern-tier">Tavern: {{ opponentInfo.tavernTier }}</div>
-						</div>
-						<board [entities]="opponentInfo.boardMinions" *ngIf="opponentInfo.boardMinions"></board>
-					</div>
-					<div class="body" *ngIf="opponentInfo.displayBody">
-						<div class="tavern-upgrades">
-							<div *ngFor="let upgrade of opponentInfo.tavernUpgrades">
-								Turn {{ upgrade.turn }}: Upgrade tier {{ upgrade.tavernTier }}
-							</div>
-						</div>
-						<div class="triple-tiers">
-							<div *ngFor="let triple of opponentInfo.triples">
-								Turn {{ triple.turn }}: One tier {{ triple.tierOfTripledMinion }} triple
-							</div>
-						</div>
-						<div class="next-battle" *ngIf="opponentInfo.nextBattle">
-							<div class="win-chance">
-								Chances to win: {{ opponentInfo.nextBattle.wonPercent?.toFixed(1) }} (for
-								{{ opponentInfo.nextBattle.averageDamageWon?.toFixed(1) }} damage)
-							</div>
-							<div class="loss-chance">
-								Chances to lose: {{ opponentInfo.nextBattle.lostPercent?.toFixed(1) }} (for
-								{{ opponentInfo.nextBattle.averageDamageLost?.toFixed(1) }} damage)
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="content" *ngIf="opponentInfos.length > 0">
+				<bgs-opponent-overview [opponentInfo]="opponentInfos[0]"></bgs-opponent-overview>
+				<div class="subtitle">Other opponents</div>
+				<bgs-opponent-overview
+					*ngFor="let opponentInfo of opponentInfos.slice(1)"
+					[opponentInfo]="opponentInfo"
+				></bgs-opponent-overview>
 			</div>
 		</div>
 	`,
@@ -96,13 +66,6 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 		setTimeout(() => {
 			this.onResize();
 		}, 100);
-	}
-
-	toggleDisplayBody(opponentInfo: OpponentInfo) {
-		opponentInfo.displayBody = !opponentInfo.displayBody;
-		if (!(this.cdr as ViewRef).destroyed) {
-			this.cdr.detectChanges();
-		}
 	}
 
 	@HostListener('window:resize')
@@ -177,24 +140,4 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 			this.onResize();
 		}, 100);
 	}
-}
-
-interface OpponentInfo {
-	id: string;
-	icon: string;
-	name: string;
-	tavernTier: string;
-	boardMinions: readonly Entity[];
-	tavernUpgrades: readonly BgsTavernUpgrade[];
-	triples: readonly BgsTriple[];
-	displayBody: boolean;
-	nextBattle: BattleResult;
-}
-
-interface BattleResult {
-	wonPercent: number;
-	tiedPercent: number;
-	lostPercent: number;
-	averageDamageWon: number;
-	averageDamageLost: number;
 }

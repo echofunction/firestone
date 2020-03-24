@@ -17,8 +17,13 @@ import { BgsHeroOverviewComponent } from '../../components/battlegrounds/hero-se
 import { BgsHeroSelectionOverviewComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-selection-overview.component';
 import { BgsHeroWarbandStatsComponent } from '../../components/battlegrounds/hero-selection/bgs-hero-warband-stats.component';
 import { BgsHeroFaceOffComponent } from '../../components/battlegrounds/in-game/bgs-hero-face-off.component';
-import { BgsNextOpponentOverviewComponent } from '../../components/battlegrounds/in-game/bgs-next-opponent-overview';
-import { BgsPostMatchStatsComponent } from '../../components/battlegrounds/post-match/bgs-post-match-stats';
+import { BgsNextOpponentOverviewComponent } from '../../components/battlegrounds/in-game/bgs-next-opponent-overview.component';
+import { BgsOpponentOverviewComponent } from '../../components/battlegrounds/in-game/bgs-opponent-overview.component';
+import { BgsChartHpComponent } from '../../components/battlegrounds/post-match/bgs-chart-hp.component';
+import { BgsChartStatsComponent } from '../../components/battlegrounds/post-match/bgs-chart-stats.component';
+import { BgsChartWarbandCompositionComponent } from '../../components/battlegrounds/post-match/bgs-chart-warband-composition.component';
+import { BgsChartWarbandStatsComponent } from '../../components/battlegrounds/post-match/bgs-chart-warband-stats.component';
+import { BgsPostMatchStatsComponent } from '../../components/battlegrounds/post-match/bgs-post-match-stats.component';
 import { AdService } from '../../services/ad.service';
 import { SharedServicesModule } from '../shared-services/shared-services.module';
 import { SharedModule } from '../shared/shared.module';
@@ -67,6 +72,11 @@ console.log('version is ' + process.env.APP_VERSION);
 		BgsPostMatchStatsComponent,
 		BgsHeroMiniComponent,
 		BgsHeroFaceOffComponent,
+		BgsOpponentOverviewComponent,
+		BgsChartHpComponent,
+		BgsChartWarbandStatsComponent,
+		BgsChartWarbandCompositionComponent,
+		BgsChartStatsComponent,
 	],
 	bootstrap: [BattlegroundsComponent],
 	providers: [AdService],

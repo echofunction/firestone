@@ -148,7 +148,7 @@ const hpForTurnParse = (structure: ParsingStructure, playerEntities: readonly El
 				.get('cardID');
 			structure.playerHps[playerCardId] =
 				// Patchwerk is a special case
-				(playerCardId === 'TB_BaconShop_HERO_34' ? 50 : 40) - parseInt(element.get('value'));
+				Math.max(0, (playerCardId === 'TB_BaconShop_HERO_34' ? 50 : 40) - parseInt(element.get('value')));
 		}
 	};
 };

@@ -1,5 +1,4 @@
 import { extractTotalManaSpent, parseHsReplayString, Replay } from '@firestone-hs/hs-replay-xml-parser';
-import { BlockType } from '@firestone-hs/reference-data';
 import { BattlegroundsState } from '../../../../models/battlegrounds/battlegrounds-state';
 import { BgsPanel } from '../../../../models/battlegrounds/bgs-panel';
 import { BgsPlayer } from '../../../../models/battlegrounds/bgs-player';
@@ -59,7 +58,7 @@ export class BgsGameEndParser implements EventParser {
 			tavernTimings: player.tavernUpgradeHistory,
 			tripleTimings: player.tripleHistory, // TODO: add the cards when relevant
 			coinsWasted: this.buildCoinsWasted(currentState, replay, structure.minionsSoldOverTurn),
-			rerolls: this.buildRerolls(replay),
+			rerolls: structure.rerollsOverTurn.map(turnInfo => turnInfo.value).reduce((a, b) => a + b, 0),
 			compositionsOverTurn: structure.compositionsOverTurn,
 			rerollsOverTurn: structure.rerollsOverTurn,
 			hpOverTurn: structure.hpOverTurn,
@@ -69,17 +68,10 @@ export class BgsGameEndParser implements EventParser {
 		console.log('post match stats', postMatchStats);
 		return BgsPostMatchStatsPanel.create({
 			stats: postMatchStats,
+			globalStats: currentState.globalStats,
+			player: currentState.currentGame.getMainPlayer(),
+			selectedStat: 'hp-by-turn',
 		} as BgsPostMatchStatsPanel);
-	}
-
-	private buildRerolls(replay: Replay): number {
-		const rerollButtonEntityIds = replay.replay
-			.findall(`.//FullEntity[@cardID='TB_BaconShop_8p_Reroll_Button']`)
-			.map(entity => entity.get('id'));
-		const numberOfTimesRerolled = replay.replay
-			.findall(`.//Block[@type='${BlockType.POWER}']`)
-			.filter(action => rerollButtonEntityIds.indexOf(action.get('entity')) !== -1).length;
-		return numberOfTimesRerolled;
 	}
 
 	private buildCoinsWasted(
