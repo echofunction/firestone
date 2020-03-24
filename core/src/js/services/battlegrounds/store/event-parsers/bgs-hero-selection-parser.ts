@@ -44,13 +44,20 @@ export class BgsHeroSelectionParser implements EventParser {
 				name: stat.name,
 				globalAveragePosition: stat.averagePosition,
 				globalPopularity: stat.popularity,
+				globalTop4: stat.top4 || 0,
+				globalTop1: stat.top1 || 0,
 				ownAveragePosition: stat.playerAveragePosition,
 				ownPopularity: stat.playerPopularity,
 				ownGamesPlayed: stat.playerGamesPlayed,
+				ownTop4: stat.playerTop4,
+				ownTop4Percentage: (100 * stat.playerTop4) / stat.playerGamesPlayed,
+				ownTop1: stat.playerTop1,
+				ownTop1Percentage: (100 * stat.playerTop1) / stat.playerGamesPlayed,
 				tribesStat: stat.tribesStat,
 				warbandStats: stat.warbandStats,
 			}),
 		);
+		console.log('created hero overview', heroOverview);
 		return BgsHeroSelectionOverview.create({
 			heroOverview: heroOverview,
 			heroOptionCardIds: heroCardIds,

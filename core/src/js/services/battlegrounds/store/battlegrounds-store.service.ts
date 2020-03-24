@@ -87,7 +87,16 @@ export class BattlegroundsStoreService {
 			} else if (gameEvent.type === GameEvent.MULLIGAN_DONE) {
 				this.battlegroundsUpdater.next(new BgsHeroSelectionDoneEvent());
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_NEXT_OPPONENT) {
-				this.battlegroundsUpdater.next(new BgsNextOpponentEvent(gameEvent.additionalData.nextOpponentCardId));
+				// Battle not over yet, deferring the event
+				if (this.state.currentGame.battleInfo.opponentBoard) {
+					setTimeout(() => {
+						this.processingQueue.enqueue(gameEvent);
+					}, 1000);
+				} else {
+					this.battlegroundsUpdater.next(
+						new BgsNextOpponentEvent(gameEvent.additionalData.nextOpponentCardId),
+					);
+				}
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_OPPONENT_REVEALED) {
 				this.battlegroundsUpdater.next(new BgsOpponentRevealedEvent(gameEvent.additionalData.cardId));
 			} else if (gameEvent.type === GameEvent.TURN_START) {

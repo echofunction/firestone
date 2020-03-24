@@ -53,8 +53,21 @@ export class BgsInitService {
 						: bgsStatsForCurrentPatch
 								.filter(stat => stat.playerCardId === heroStat.id)
 								.map(stat => parseInt(stat.additionalResult))
-								.reduce((a, b) => a + b, 0) /
-						  bgsStatsForCurrentPatch.filter(stat => stat.playerCardId === heroStat.id).length,
+								.reduce((a, b) => a + b, 0) / playerGamesPlayed,
+				playerTop4:
+					playerPopularity === 0
+						? 0
+						: bgsStatsForCurrentPatch
+								.filter(stat => stat.playerCardId === heroStat.id)
+								.map(stat => parseInt(stat.additionalResult))
+								.filter(position => position <= 4).length / playerGamesPlayed,
+				playerTop1:
+					playerPopularity === 0
+						? 0
+						: bgsStatsForCurrentPatch
+								.filter(stat => stat.playerCardId === heroStat.id)
+								.map(stat => parseInt(stat.additionalResult))
+								.filter(position => position == 1).length / playerGamesPlayed,
 			} as BgsHeroStat);
 		});
 		const statsWithPlayer = bgsGlobalStats.update({

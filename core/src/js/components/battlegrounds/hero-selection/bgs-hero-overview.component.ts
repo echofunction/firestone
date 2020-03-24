@@ -16,12 +16,26 @@ declare var amplitude: any;
 			<div class="stats">
 				<div class="title">Stats</div>
 				<div class="entry">
-					<div class="player-value">{{ _hero.ownGamesPlayed }} played ({{ _hero.ownPopularity }} %)</div>
-					<div class="global-value">({{ _hero.globalPopularity }} % global)</div>
+					<div class="player-value">
+						{{ _hero.ownGamesPlayed }} played ({{ _hero.ownPopularity.toFixed(1) }} %)
+					</div>
+					<div class="global-value">({{ _hero.globalPopularity.toFixed(1) }} % global)</div>
 				</div>
 				<div class="entry">
-					<div class="player-value">{{ _hero.ownAveragePosition }} average position</div>
-					<div class="global-value">({{ _hero.globalAveragePosition }} global)</div>
+					<div class="player-value">{{ _hero.ownAveragePosition.toFixed(1) }} average position</div>
+					<div class="global-value">({{ _hero.globalAveragePosition.toFixed(1) }} global)</div>
+				</div>
+				<div class="entry">
+					<div class="player-value">
+						{{ _hero.ownTop4 }} top 4 ({{ _hero.ownTop4Percentage.toFixed(1) }} %)
+					</div>
+					<div class="global-value">({{ _hero.globalTop4.toFixed(1) }} % global)</div>
+				</div>
+				<div class="entry">
+					<div class="player-value">
+						{{ _hero.ownTop1 }} top 1 ({{ _hero.ownTop1Percentage.toFixed(1) }} %)
+					</div>
+					<div class="global-value">({{ _hero.globalTop1.toFixed(1) }} % global)</div>
 				</div>
 			</div>
 			<div class="tribes">

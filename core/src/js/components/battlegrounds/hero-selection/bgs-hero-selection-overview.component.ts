@@ -32,8 +32,8 @@ export class BgsHeroSelectionOverviewComponent {
 
 	@Input() set panel(value: BgsHeroSelectionOverview) {
 		this._panel = value;
-		this.heroOverviews = this._panel.heroOverview.filter(
-			overview => this._panel.heroOptionCardIds.indexOf(overview.heroCardId) !== -1,
+		this.heroOverviews = this._panel.heroOptionCardIds.map(cardId =>
+			this._panel.heroOverview.find(overview => overview.heroCardId === cardId),
 		);
 	}
 
