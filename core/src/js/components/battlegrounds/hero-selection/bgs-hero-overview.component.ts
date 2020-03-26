@@ -63,6 +63,7 @@ export class BgsHeroOverviewComponent {
 
 	@Input() set hero(value: BgsHeroOverview) {
 		this._hero = value;
+		console.log('setting hero', value);
 		this.icon = `https://static.zerotoheroes.com/hearthstone/cardart/256x/${value.heroCardId}.jpg`;
 		this.tribes = [...value.tribesStat]
 			.sort((a, b) => b.percent - a.percent)

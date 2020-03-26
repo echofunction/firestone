@@ -5,7 +5,7 @@ import { EventParser } from './_event-parser';
 
 export class BgsHeroSelectionDoneParser implements EventParser {
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsHeroSelectionDoneEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsHeroSelectionDoneEvent';
 	}
 
 	public async parse(

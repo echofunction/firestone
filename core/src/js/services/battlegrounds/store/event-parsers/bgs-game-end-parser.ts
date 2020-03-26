@@ -16,7 +16,7 @@ import { EventParser } from './_event-parser';
 // TODO: coins wasted doesn't take into account hero powers that let you have more coins (Bel'ial)
 export class BgsGameEndParser implements EventParser {
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsGameEndEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsGameEndEvent';
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsGameEndEvent): Promise<BattlegroundsState> {

@@ -16,7 +16,7 @@ export class BgsPlayerBoardParser implements EventParser {
 	constructor(private readonly simulation: BgsBattleSimulationService) {}
 
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsPlayerBoardEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsPlayerBoardEvent';
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsPlayerBoardEvent): Promise<BattlegroundsState> {

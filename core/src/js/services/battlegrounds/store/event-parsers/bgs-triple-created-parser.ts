@@ -8,7 +8,7 @@ import { EventParser } from './_event-parser';
 
 export class BgsTripleCreatedParser implements EventParser {
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsTripleCreatedEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsTripleCreatedEvent';
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsTripleCreatedEvent): Promise<BattlegroundsState> {

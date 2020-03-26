@@ -116,7 +116,7 @@ export class BattlegroundsComponent implements AfterViewInit, OnDestroy {
 		if (mainMonitor !== -1) {
 			const secondMonitor = monitorsList.displays.filter(monitor => monitor.handle.value !== mainMonitor)[0];
 			console.log('changing window position', this.windowId, secondMonitor.x, secondMonitor.y);
-			this.ow.changeWindowPosition(this.windowId, secondMonitor.x + 10, secondMonitor.y + 10);
+			this.ow.changeWindowPosition(this.windowId, secondMonitor.x + 100, secondMonitor.y + 100);
 		}
 
 		// this.ow.maximizeWindow(this.windowId);

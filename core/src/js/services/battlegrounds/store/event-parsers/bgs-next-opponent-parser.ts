@@ -10,7 +10,7 @@ import { EventParser } from './_event-parser';
 
 export class BgsNextOpponentParser implements EventParser {
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsNextOpponentEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsNextOpponentEvent';
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsNextOpponentEvent): Promise<BattlegroundsState> {
@@ -20,6 +20,8 @@ export class BgsNextOpponentParser implements EventParser {
 		);
 		return currentState.update({
 			stages: stages,
+			currentStageId: 'in-game',
+			currentPanelId: 'bgs-next-opponent-overview',
 		} as BattlegroundsState);
 	}
 

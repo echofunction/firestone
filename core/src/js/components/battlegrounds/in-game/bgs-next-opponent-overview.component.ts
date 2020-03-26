@@ -28,11 +28,15 @@ declare var amplitude: any;
 				<bgs-hero-face-off *ngFor="let faceOff of opponentFaceOffs" [faceOff]="faceOff"></bgs-hero-face-off>
 			</div>
 			<div class="content" *ngIf="opponentInfos.length > 0">
-				<bgs-opponent-overview [opponentInfo]="opponentInfos[0]"></bgs-opponent-overview>
+				<bgs-opponent-overview
+					[opponentInfo]="opponentInfos[0]"
+					[currentTurn]="currentTurn"
+				></bgs-opponent-overview>
 				<div class="subtitle">Other opponents</div>
 				<bgs-opponent-overview
 					*ngFor="let opponentInfo of opponentInfos.slice(1)"
 					[opponentInfo]="opponentInfo"
+					[currentTurn]="currentTurn"
 				></bgs-opponent-overview>
 			</div>
 		</div>
@@ -42,6 +46,7 @@ declare var amplitude: any;
 export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 	opponentInfos: readonly OpponentInfo[] = [];
 	opponentFaceOffs: readonly OpponentFaceOff[];
+	currentTurn: number;
 
 	private _panel: BgsNextOpponentOverviewPanel;
 	private _game: BgsGame;
@@ -94,6 +99,7 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 		if (!this._panel || !this._game || !this._panel.opponentOverview) {
 			return;
 		}
+		this.currentTurn = this._game.currentTurn;
 		const nextOpponent = this._game.players.find(player => player.cardId === this._panel.opponentOverview.cardId);
 		if (!nextOpponent) {
 			return;
@@ -108,6 +114,7 @@ export class BgsNextOpponentOverviewComponent implements AfterViewInit {
 						name: opponent.name,
 						tavernTier: '' + opponent.getCurrentTavernTier(),
 						boardMinions: opponent.getLastKnownBoardState(),
+						boardTurn: opponent.getLastBoardStateTurn(),
 						tavernUpgrades: [...opponent.tavernUpgradeHistory].reverse(),
 						triples: [...opponent.tripleHistory].reverse(),
 						displayBody: opponent.cardId === this._panel.opponentOverview.cardId,

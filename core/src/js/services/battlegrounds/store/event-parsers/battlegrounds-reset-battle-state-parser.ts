@@ -4,7 +4,7 @@ import { EventParser } from './_event-parser';
 
 export class BattlegroundsResetBattleStateParser implements EventParser {
 	public applies(gameEvent: GameEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === GameEvent.MAIN_STEP_READY;
+		return state && state.currentGame && gameEvent.type === GameEvent.MAIN_STEP_READY;
 	}
 
 	public async parse(currentState: BattlegroundsState, gameEvent: GameEvent): Promise<BattlegroundsState> {

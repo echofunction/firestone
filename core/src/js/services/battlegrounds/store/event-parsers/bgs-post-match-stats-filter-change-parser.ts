@@ -9,7 +9,7 @@ import { EventParser } from './_event-parser';
 
 export class BgsPostMatchStatsFilterChangeParser implements EventParser {
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsPostMatchStatsFilterChangeEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsPostMatchStatsFilterChangeEvent';
 	}
 
 	public async parse(

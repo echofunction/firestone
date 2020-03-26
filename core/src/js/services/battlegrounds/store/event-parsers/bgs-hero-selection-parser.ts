@@ -11,7 +11,7 @@ import { EventParser } from './_event-parser';
 
 export class BgsHeroSelectionParser implements EventParser {
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsHeroSelectionEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsHeroSelectionEvent';
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsHeroSelectionEvent): Promise<BattlegroundsState> {
@@ -49,10 +49,12 @@ export class BgsHeroSelectionParser implements EventParser {
 				ownAveragePosition: stat.playerAveragePosition,
 				ownPopularity: stat.playerPopularity,
 				ownGamesPlayed: stat.playerGamesPlayed,
-				ownTop4: stat.playerTop4,
-				ownTop4Percentage: (100 * stat.playerTop4) / stat.playerGamesPlayed,
-				ownTop1: stat.playerTop1,
-				ownTop1Percentage: (100 * stat.playerTop1) / stat.playerGamesPlayed,
+				ownTop4: stat.playerTop4 || 0,
+				ownTop4Percentage:
+					stat.playerGamesPlayed === 0 ? 0 : (100 * (stat.playerTop4 || 0)) / stat.playerGamesPlayed,
+				ownTop1: stat.playerTop1 || 0,
+				ownTop1Percentage:
+					stat.playerGamesPlayed === 0 ? 0 : (100 * (stat.playerTop1 || 0)) / stat.playerGamesPlayed,
 				tribesStat: stat.tribesStat,
 				warbandStats: stat.warbandStats,
 			}),

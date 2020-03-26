@@ -10,7 +10,7 @@ export class BgsOpponentRevealedParser implements EventParser {
 	constructor(private readonly allCards: AllCardsService) {}
 
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsOpponentRevealedEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsOpponentRevealedEvent';
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsOpponentRevealedEvent): Promise<BattlegroundsState> {

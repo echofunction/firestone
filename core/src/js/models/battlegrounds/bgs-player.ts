@@ -33,6 +33,10 @@ export class BgsPlayer {
 		return this.boardHistory.length === 0 ? [] : this.boardHistory[this.boardHistory.length - 1].board;
 	}
 
+	public getLastBoardStateTurn(): number {
+		return this.boardHistory.length === 0 ? undefined : this.boardHistory[this.boardHistory.length - 1].turn;
+	}
+
 	public buildBgsEntities(logEntities: readonly any[]): readonly BoardEntity[] {
 		return logEntities.map(entity => this.buildBgsEntity(entity));
 	}

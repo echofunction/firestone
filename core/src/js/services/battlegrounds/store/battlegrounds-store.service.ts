@@ -31,7 +31,6 @@ import { EventParser } from './event-parsers/_event-parser';
 import { BgsBattleResultEvent } from './events/bgs-battle-result-event';
 import { BgsGameEndEvent } from './events/bgs-game-end-event';
 import { BgsHeroSelectedEvent } from './events/bgs-hero-selected-event';
-import { BgsHeroSelectionDoneEvent } from './events/bgs-hero-selection-done-event';
 import { BgsHeroSelectionEvent } from './events/bgs-hero-selection-event';
 import { BgsMatchStartEvent } from './events/bgs-match-start-event';
 import { BgsNextOpponentEvent } from './events/bgs-next-opponent-event';
@@ -85,18 +84,9 @@ export class BattlegroundsStoreService {
 			) {
 				this.battlegroundsUpdater.next(new BgsMatchStartEvent());
 			} else if (gameEvent.type === GameEvent.MULLIGAN_DONE) {
-				this.battlegroundsUpdater.next(new BgsHeroSelectionDoneEvent());
+				// this.battlegroundsUpdater.next(new BgsHeroSelectionDoneEvent());
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_NEXT_OPPONENT) {
-				// Battle not over yet, deferring the event
-				if (this.state.currentGame.battleInfo.opponentBoard) {
-					setTimeout(() => {
-						this.processingQueue.enqueue(gameEvent);
-					}, 1000);
-				} else {
-					this.battlegroundsUpdater.next(
-						new BgsNextOpponentEvent(gameEvent.additionalData.nextOpponentCardId),
-					);
-				}
+				this.maybeHandleNextOpponent(gameEvent);
 			} else if (gameEvent.type === GameEvent.BATTLEGROUNDS_OPPONENT_REVEALED) {
 				this.battlegroundsUpdater.next(new BgsOpponentRevealedEvent(gameEvent.additionalData.cardId));
 			} else if (gameEvent.type === GameEvent.TURN_START) {
@@ -149,6 +139,29 @@ export class BattlegroundsStoreService {
 			console.error('Exception while processing event', e);
 		}
 		return eventQueue.slice(1);
+	}
+
+	private maybeHandleNextOpponent(gameEvent: GameEvent): void {
+		// Battle not over yet, deferring the event
+		if (this.state.currentGame?.battleInfo?.opponentBoard) {
+			console.log(
+				'requeueing next opponent',
+				this.state,
+				this.state.currentGame?.battleInfo?.opponentBoard,
+				gameEvent,
+			);
+			setTimeout(() => {
+				this.maybeHandleNextOpponent(gameEvent);
+			}, 1000);
+		} else {
+			console.log(
+				'will process next opponent',
+				this.state,
+				this.state.currentGame?.battleInfo?.opponentBoard,
+				gameEvent,
+			);
+			this.battlegroundsUpdater.next(new BgsNextOpponentEvent(gameEvent.additionalData.nextOpponentCardId));
+		}
 	}
 
 	private async processEvent(gameEvent: BattlegroundsStoreEvent) {

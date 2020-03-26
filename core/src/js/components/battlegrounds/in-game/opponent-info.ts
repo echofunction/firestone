@@ -8,6 +8,7 @@ export interface OpponentInfo {
 	name: string;
 	tavernTier: string;
 	boardMinions: readonly Entity[];
+	boardTurn: number;
 	tavernUpgrades: readonly BgsTavernUpgrade[];
 	triples: readonly BgsTriple[];
 	displayBody: boolean;

@@ -8,7 +8,7 @@ import { EventParser } from './_event-parser';
 
 export class BgsTavernUpgradeParser implements EventParser {
 	public applies(gameEvent: BattlegroundsStoreEvent, state: BattlegroundsState): boolean {
-		return state && gameEvent.type === 'BgsTavernUpgradeEvent';
+		return state && state.currentGame && gameEvent.type === 'BgsTavernUpgradeEvent';
 	}
 
 	public async parse(currentState: BattlegroundsState, event: BgsTavernUpgradeEvent): Promise<BattlegroundsState> {

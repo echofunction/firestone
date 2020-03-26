@@ -14,7 +14,7 @@ declare var amplitude: any;
 		<div class="container">
 			<div class="left">
 				<bgs-hero-mini
-					*ngFor="let hero of _panel.heroOverview"
+					*ngFor="let hero of smallOverviews"
 					[hero]="hero"
 					[ngClass]="{ 'available': isAvailableHero(hero) }"
 				></bgs-hero-mini>
@@ -28,13 +28,16 @@ declare var amplitude: any;
 })
 export class BgsHeroSelectionOverviewComponent {
 	heroOverviews: readonly BgsHeroOverview[];
+	smallOverviews: readonly BgsHeroOverview[];
 	_panel: BgsHeroSelectionOverview;
 
 	@Input() set panel(value: BgsHeroSelectionOverview) {
 		this._panel = value;
-		this.heroOverviews = this._panel.heroOptionCardIds.map(cardId =>
-			this._panel.heroOverview.find(overview => overview.heroCardId === cardId),
-		);
+		this.smallOverviews = this._panel.heroOverview.filter(overview => overview.heroCardId !== 'average');
+		this.heroOverviews = this._panel.heroOptionCardIds
+			.map(cardId => this._panel.heroOverview.find(overview => overview.heroCardId === cardId))
+			// Add null-safe in case the heroes have been updated but not the code
+			.filter(hero => hero);
 	}
 
 	isAvailableHero(hero: BgsHeroOverview): boolean {

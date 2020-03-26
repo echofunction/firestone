@@ -57,7 +57,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		OverlayModule,
 		FormsModule,
 		ReactiveFormsModule,
-		LoggerModule.forRoot({ level: NgxLoggerLevel.DEBUG }),
+		LoggerModule.forRoot({ level: NgxLoggerLevel.WARN }),
 		ChartsModule,
 		SharedServicesModule.forRoot(),
 		ColiseumComponentsModule,
