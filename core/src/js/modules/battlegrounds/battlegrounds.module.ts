@@ -19,6 +19,7 @@ import { BgsHeroWarbandStatsComponent } from '../../components/battlegrounds/her
 import { BgsHeroFaceOffComponent } from '../../components/battlegrounds/in-game/bgs-hero-face-off.component';
 import { BgsNextOpponentOverviewComponent } from '../../components/battlegrounds/in-game/bgs-next-opponent-overview.component';
 import { BgsOpponentOverviewComponent } from '../../components/battlegrounds/in-game/bgs-opponent-overview.component';
+import { MenuSelectionBgsComponent } from '../../components/battlegrounds/menu-selection-bgs.component';
 import { BgsChartHpComponent } from '../../components/battlegrounds/post-match/bgs-chart-hp.component';
 import { BgsChartStatsComponent } from '../../components/battlegrounds/post-match/bgs-chart-stats.component';
 import { BgsChartWarbandCompositionComponent } from '../../components/battlegrounds/post-match/bgs-chart-warband-composition.component';
@@ -77,6 +78,7 @@ console.log('version is ' + process.env.APP_VERSION);
 		BgsChartWarbandStatsComponent,
 		BgsChartWarbandCompositionComponent,
 		BgsChartStatsComponent,
+		MenuSelectionBgsComponent,
 	],
 	bootstrap: [BattlegroundsComponent],
 	providers: [AdService],

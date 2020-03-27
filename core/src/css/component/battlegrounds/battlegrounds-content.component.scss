@@ -4,75 +4,95 @@
 	display: flex;
 }
 
-.menu {
-	width: 410px;
+.navigation {
 	display: flex;
-	flex-direction: column;
-	// height: calc(100% - 325px);
-	position: absolute;
+	position: relative;
 	flex-shrink: 0;
+	height: 60px;
 
-	.navigation {
-		flex-grow: 1;
+	.logo {
+		position: relative;
+		top: 16px;
+		margin-left: 5px;
+		margin-right: 120px;
+	}
+
+	menu-selection-bgs {
 		display: flex;
+		align-items: flex-end;
+	}
 
-		.main-menu {
-			width: 120px;
-			display: flex;
-			flex-direction: column;
-		}
-
-		.stage-button {
-			width: 90px;
-			height: 90px;
-			background: rgba(255, 255, 255, 0.04);
-			font-size: 16px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-
-			span {
-				text-align: center;
-			}
-		}
-
-		.panel-button {
-			width: 70px;
-			height: 70px;
-			background: rgba(255, 255, 255, 0.04);
-			font-size: 14px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-
-			span {
-				text-align: center;
-			}
-		}
+	.main-section {
+		display: flex;
 	}
 }
 
-.content {
+.menu-bar {
+	background: transparent;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	position: relative;
+	width: calc(100% + 20px);
+	left: -10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 62px;
+	z-index: 400;
+	flex-shrink: 0;
+	border: none;
+	border-bottom: 1px solid var(--menu-bar-bottom-border-color);
+
+	.first {
+		display: flex;
+		flex-direction: column;
+	}
+
+	hotkey {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		flex-grow: 1;
+		margin-right: 35px;
+		align-items: flex-start;
+		position: relative;
+		top: 5px;
+
+		.key {
+			border: none;
+			width: auto;
+			height: auto;
+		}
+		.plus {
+			margin: 0;
+		}
+	}
+
+	.controls {
+		height: 30px;
+		display: flex;
+		margin-right: -10px;
+	}
+}
+
+.content-container {
+	position: relative;
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-	padding-top: 40px;
-	width: 100%;
+	height: calc(100% - 62px);
 
 	& > * {
 		flex-grow: 1;
 		display: flex;
-		min-height: 0;
+		max-height: 100%;
 	}
+}
 
-	.title {
-		flex-grow: 0;
-		flex-shrink: 0;
-		height: 40px;
-		color: var(--default-title-color);
-		font-size: 16px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+tooltips {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 9999;
 }

@@ -7,15 +7,10 @@ import {
 	Input,
 	ViewRef,
 } from '@angular/core';
-import { AllCardsService } from '@firestone-hs/replay-parser';
-import { IOption } from 'ng-select';
 import { BattlegroundsState } from '../../models/battlegrounds/battlegrounds-state';
 import { BgsPanel } from '../../models/battlegrounds/bgs-panel';
 import { BgsStage } from '../../models/battlegrounds/bgs-stage';
-import { BgsStageId } from '../../models/battlegrounds/bgs-stage-id.type';
-import { BgsStageChangeEvent } from '../../services/battlegrounds/store/events/bgs-stage-change-event';
 import { BattlegroundsStoreEvent } from '../../services/battlegrounds/store/events/_battlegrounds-store-event';
-import { DebugService } from '../../services/debug.service';
 import { OverwolfService } from '../../services/overwolf.service';
 
 declare var amplitude: any;
@@ -28,32 +23,27 @@ declare var amplitude: any;
 	],
 	template: `
 		<div class="battlegrounds" *ngIf="_state">
-			<section class="menu">
-				<i class="i-117X33 gold-theme logo">
-					<svg class="svg-icon-fill">
-						<use xlink:href="/Files/assets/svg/sprite.svg#logo" />
-					</svg>
-				</i>
-				<filter
-					[filterOptions]="filterOptions"
-					[activeFilter]="activeFilter"
-					[placeholder]="placeholder"
-					[delegateFullControl]="true"
-					[filterChangeFunction]="filterChangeFunction"
-				></filter>
-
-				<!-- <div class="navigation">
-					<div class="main-menu">
-						<div *ngFor="let stage of _state.stages" class="stage-button">
-							<span>{{ stage.name }}</span>
-						</div>
+			<section class="menu-bar">
+				<!-- <main-window-navigation [navigation]="state.navigation"></main-window-navigation> -->
+				<div class="first">
+					<div class="navigation">
+						<i class="i-117X33 gold-theme logo">
+							<svg class="svg-icon-fill">
+								<use xlink:href="/Files/assets/svg/sprite.svg#logo" />
+							</svg>
+						</i>
+						<menu-selection-bgs [selectedStage]="currentStage?.id"></menu-selection-bgs>
 					</div>
-					<div class="secondary-menu" *ngIf="currentStage">
-						<div *ngFor="let panel of currentStage.panels" class="panel-button">
-							<span>{{ panel.name }}</span>
-						</div>
-					</div>
-				</div> -->
+				</div>
+				<!-- <hotkey-bgs></hotkey-bgs> -->
+				<div class="controls">
+					<control-bug></control-bug>
+					<control-settings [windowId]="windowId"></control-settings>
+					<control-discord></control-discord>
+					<control-minimize [windowId]="windowId"></control-minimize>
+					<control-maximize [windowId]="windowId"></control-maximize>
+					<control-close [windowId]="windowId"></control-close>
+				</div>
 			</section>
 			<section class="content" *ngIf="currentPanel">
 				<div class="title">{{ currentPanel.name }}</div>
@@ -78,27 +68,12 @@ export class BattlegroundsContentComponent implements AfterViewInit {
 	_state: BattlegroundsState;
 	currentStage: BgsStage;
 	currentPanel: BgsPanel;
-
-	filterOptions: readonly IOption[];
-	activeFilter: BgsStageId;
-	placeholder: string = 'Select view';
-	filterChangeFunction: (option: IOption) => void;
+	windowId: string;
 
 	@Input() set state(value: BattlegroundsState) {
 		this._state = value;
 		this.currentStage = value?.stages?.find(stage => stage.id === value.currentStageId);
 		this.currentPanel = this.currentStage?.panels?.find(panel => panel.id === value.currentPanelId);
-		this.filterOptions = value?.stages?.map(
-			stage =>
-				({
-					label: stage.name,
-					value: stage.id,
-				} as IOption),
-		);
-		this.activeFilter = this.currentStage?.id;
-
-		this.filterChangeFunction = (option: IOption) =>
-			this.battlegroundsUpdater.next(new BgsStageChangeEvent(option.value as BgsStageId));
 
 		console.log('setting state', value, this.currentStage, this.currentPanel);
 		if (!(this.cdr as ViewRef).destroyed) {
@@ -108,14 +83,10 @@ export class BattlegroundsContentComponent implements AfterViewInit {
 
 	private battlegroundsUpdater: EventEmitter<BattlegroundsStoreEvent>;
 
-	constructor(
-		private readonly cdr: ChangeDetectorRef,
-		private readonly ow: OverwolfService,
-		private readonly debug: DebugService,
-		private readonly cards: AllCardsService,
-	) {}
+	constructor(private readonly cdr: ChangeDetectorRef, private readonly ow: OverwolfService) {}
 
 	async ngAfterViewInit() {
 		this.battlegroundsUpdater = (await this.ow.getMainWindow()).battlegroundsUpdater;
+		this.windowId = (await this.ow.getCurrentWindow()).id;
 	}
 }
