@@ -5,13 +5,19 @@
 	height: 100%;
 	align-items: center;
 	padding: 10px;
-
-	.portrait {
-		width: 70%;
-	}
+	padding-left: 11%;
+	padding-right: 11%;
 
 	.name {
 		color: var(--default-title-color);
+		font-size: 16px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.portrait {
+		width: 12vh;
+		margin-bottom: 10px;
 	}
 
 	.title {
@@ -19,19 +25,44 @@
 		margin-bottom: 5px;
 		text-align: center;
 		width: 100%;
+		padding-bottom: 10px;
+		border-bottom: 1px solid var(--color-4);
+		margin-bottom: 10px;
 	}
 
 	.stats {
-		margin-top: 20px;
+		// margin-top: 20px;
+		margin-top: 0.1vh;
 		display: flex;
 		flex-direction: column;
 
 		.entry {
 			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.stat-icon {
+			width: 25%;
+
+			.image {
+				width: 100%;
+			}
+		}
+
+		.label {
+			flex-grow: 1;
 		}
 
 		.global-value {
 			margin-left: 5px;
+			font-weight: bold;
+		}
+
+		.player-value {
+			color: #ce73b4;
+			margin-left: 5px;
+			font-weight: bold;
 		}
 	}
 
@@ -45,13 +76,35 @@
 			display: flex;
 			width: 100%;
 			align-items: center;
-			justify-content: space-between;
+			justify-content: center;
+			flex-wrap: wrap;
+
+			.icon-container {
+				background: #ce73b4;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				clip-path: ellipse(43% 32% at 50% 50%);
+			}
+
+			.icon {
+				width: 135%;
+				clip-path: ellipse(30% 30% at 50% 50%);
+			}
 
 			.tribe {
 				display: flex;
 				flex-direction: column;
-				width: 20%;
+				width: 6.4vh;
 				overflow: hidden;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: -5%;
+			}
+
+			.value {
+				top: -10px;
+				position: relative;
 			}
 		}
 	}
@@ -59,5 +112,11 @@
 	.profile {
 		margin-top: 20px;
 		width: 100%;
+	}
+}
+
+@media (max-height: 850px) {
+	.profile {
+		display: none;
 	}
 }

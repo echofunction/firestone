@@ -45,7 +45,7 @@ declare var amplitude: any;
 					<control-close [windowId]="windowId"></control-close>
 				</div>
 			</section>
-			<section class="content" *ngIf="currentPanel">
+			<section class="content-container" *ngIf="currentPanel">
 				<div class="title">{{ currentPanel.name }}</div>
 				<ng-container [ngSwitch]="currentPanel.id">
 					<bgs-hero-selection-overview *ngSwitchCase="'bgs-hero-selection-overview'" [panel]="currentPanel">

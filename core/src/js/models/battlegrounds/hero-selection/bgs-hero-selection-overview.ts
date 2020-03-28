@@ -4,7 +4,7 @@ import { BgsHeroOverview } from './bgs-hero-overview';
 
 export class BgsHeroSelectionOverview implements BgsPanel {
 	readonly id: BgsPanelId = 'bgs-hero-selection-overview';
-	readonly name: string = 'Heroes Overview';
+	readonly name: string = 'Hero Selection';
 	readonly icon: string;
 	readonly heroOverview: readonly BgsHeroOverview[];
 	readonly heroOptionCardIds: readonly string[];

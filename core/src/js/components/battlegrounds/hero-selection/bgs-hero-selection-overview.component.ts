@@ -20,7 +20,11 @@ declare var amplitude: any;
 				></bgs-hero-mini>
 			</div>
 			<div class="hero-selection-overview">
-				<bgs-hero-overview *ngFor="let hero of heroOverviews" [hero]="hero"></bgs-hero-overview>
+				<bgs-hero-overview
+					*ngFor="let hero of heroOverviews"
+					[hero]="hero"
+					[style.width.%]="getOverviewWidth()"
+				></bgs-hero-overview>
 			</div>
 		</div>
 	`,
@@ -38,6 +42,17 @@ export class BgsHeroSelectionOverviewComponent {
 			.map(cardId => this._panel.heroOverview.find(overview => overview.heroCardId === cardId))
 			// Add null-safe in case the heroes have been updated but not the code
 			.filter(hero => hero);
+	}
+
+	getOverviewWidth(): number {
+		switch (this._panel.heroOptionCardIds.length) {
+			case 2:
+				return 45;
+			case 3:
+				return 30;
+			case 4:
+				return 24;
+		}
 	}
 
 	isAvailableHero(hero: BgsHeroOverview): boolean {

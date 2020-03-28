@@ -7,35 +7,35 @@
 	);
 	--window-background-image: radial-gradient(340px at 50% 50%, rgba(94, 11, 70, 0.7) 0%, rgba(43, 24, 39, 0.7) 100%),
 		url('/Files/assets/images/backgrounds/battlegrounds.jpg');
-	--color-1: #cb9fd7;
+	--color-1: #dfb3d3;
 	--color-2: #841063;
 	--color-3: #841063;
-	--color-4: #4b3052;
+	--color-4: #5f0b47;
 	--color-5: #190505;
 	--color-6: #841063;
 	--color-7: #2a1030;
 	--color-common-1: #d9c3ab;
 	--color-common-2: #ffb948;
 
-	--window-outline-color: #4b3052;
+	--window-outline-color: #5f0b47;
 	--default-text-color: #d9c3ab;
-	--default-title-color: #ffb948;
+	--default-title-color: var(--color-common-2);
 	--secondary-text-color: #841063;
 
 	--menu-selection-color: var(--color-3);
 	--on-menu-selection-color: var(--color-common-2);
-	--menu-bar-bottom-border-color: #4b3052;
+	--menu-bar-bottom-border-color: var(--color-4);
 
-	--tooltip-background-color: #841063;
-	--tooltip-color: #190505;
+	--tooltip-background-color: var(--color-2);
+	--tooltip-color: var(--color-1);
 
 	--ads-background-color: #190505;
 	--ads-color: #2a1030;
 
-	--control-button-color: #cb9fd7;
-	--on-control-button-background-color: #4b3052;
+	--control-button-color: var(--color-1);
+	--on-control-button-background-color: var(--color-4);
 	--on-close-button-color: #2a1030;
-	--on-close-button-background-color: #cb9fd7;
+	--on-close-button-background-color: var(--color-1);
 
 	--scrollbar-thumb-color: #841063;
 	--on-scrollbar-thumb-color: #a276af;
@@ -43,11 +43,11 @@
 	--toggle-color-border: var(--color-1);
 	--toggle-color-knob: var(--color-1);
 
-	--confirmation-text-color: #cb9fd7;
-	--confirmation-background-color: #4b3052;
+	--confirmation-text-color: #dfb3d3;
+	--confirmation-background-color: #5f0b47;
 	--on-confirmation-button-background-color: rgba(255, 255, 255, 0.08);
 	--confirmation-ok-button-color: #1f2142;
 	--confirmation-ok-button-background-color: #767faf;
-	--on-confirmation-ok-button-background-color: #cb9fd7;
+	--on-confirmation-ok-button-background-color: #dfb3d3;
 	--confirmation-backdrop-color: #190505;
 }

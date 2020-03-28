@@ -5,6 +5,7 @@ import {
 	Component,
 	ElementRef,
 	Input,
+	ViewChild,
 	ViewRef,
 } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
@@ -22,6 +23,7 @@ declare var amplitude: any;
 		<div class="container">
 			<div style="display: block;">
 				<canvas
+					#chart
 					baseChart
 					[style.width.px]="chartWidth"
 					[style.height.px]="chartHeight"
@@ -29,7 +31,7 @@ declare var amplitude: any;
 					[labels]="lineChartLabels"
 					[options]="lineChartOptions"
 					[colors]="lineChartColors"
-					[legend]="true"
+					[legend]="false"
 					[chartType]="'line'"
 				></canvas>
 			</div>
@@ -38,6 +40,8 @@ declare var amplitude: any;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BgsHeroWarbandStatsComponent implements AfterViewInit {
+	@ViewChild('chart', { static: true }) chart: ElementRef;
+
 	chartWidth: number;
 	chartHeight: number;
 	lineChartData: ChartDataSets[];
@@ -45,30 +49,49 @@ export class BgsHeroWarbandStatsComponent implements AfterViewInit {
 	lineChartOptions: ChartOptions = {
 		responsive: true,
 		scales: {
-			// We use this empty structure as a placeholder for dynamic theming.
-			xAxes: [{}],
+			xAxes: [
+				{
+					gridLines: {
+						color: '#841063',
+					},
+					ticks: {
+						fontColor: '#D9C3AB',
+						fontFamily: 'Open Sans',
+						fontStyle: 'normal',
+					},
+				},
+			],
 			yAxes: [
 				{
 					id: 'delta-stats',
 					position: 'left',
+					gridLines: {
+						color: '#40032E',
+					},
+					ticks: {
+						fontColor: '#D9C3AB',
+						fontFamily: 'Open Sans',
+						fontStyle: 'normal',
+					},
 				},
 			],
 		},
 	};
-	lineChartColors: Color[] = [
-		{
-			backgroundColor: 'rgba(148,159,177,0.2)',
-			borderColor: 'rgba(148,159,177,1)',
-			pointBackgroundColor: 'rgba(148,159,177,1)',
-			pointBorderColor: '#fff',
-			pointHoverBackgroundColor: '#fff',
-			pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-		},
-	];
+	lineChartColors: Color[];
 
 	@Input() set warbandStats(value: readonly { turn: number; totalStats: number }[]) {
 		this.lineChartData = [{ data: value.map(stat => stat.totalStats), label: 'Warband stats delta' }];
 		this.lineChartLabels = value.map(stat => '' + stat.turn);
+		// this.lineChartColors = [
+		// 	{
+		// 		backgroundColor: this.getBackgroundColor(),
+		// 		borderColor: '#CE73B4',
+		// 		pointBackgroundColor: 'transparent',
+		// 		pointBorderColor: 'transparent',
+		// 		pointHoverBackgroundColor: '#fff',
+		// 		pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+		// 	},
+		// ];
 	}
 
 	constructor(private readonly el: ElementRef, private readonly cdr: ChangeDetectorRef) {}
@@ -79,8 +102,29 @@ export class BgsHeroWarbandStatsComponent implements AfterViewInit {
 		console.log('chartContainer', chartContainer, rect);
 		this.chartWidth = rect.width;
 		this.chartHeight = rect.width / 2;
+		this.lineChartColors = [
+			{
+				backgroundColor: this.getBackgroundColor(),
+				borderColor: '#CE73B4',
+				pointBackgroundColor: 'transparent',
+				pointBorderColor: 'transparent',
+				pointHoverBackgroundColor: '#fff',
+				pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+			},
+		];
 		if (!(this.cdr as ViewRef).destroyed) {
 			this.cdr.detectChanges();
 		}
+	}
+
+	private getBackgroundColor() {
+		console.log('setting gradient', Math.round(this.chartHeight));
+		const gradient = this.chart.nativeElement
+			.getContext('2d')
+			.createLinearGradient(0, 0, 0, Math.round(this.chartHeight));
+		gradient.addColorStop(0, 'rgba(206, 115, 180, 1)'); // #CE73B4
+		gradient.addColorStop(0.4, 'rgba(206, 115, 180, 0.4)');
+		gradient.addColorStop(1, 'rgba(206, 115, 180, 0)');
+		return gradient;
 	}
 }
