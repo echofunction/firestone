@@ -1,18 +1,55 @@
 .hero-overview {
 	display: flex;
 	flex-direction: column;
-	background: rgba(255, 255, 255, 0.04);
+	background: rgba(255, 255, 255, 0.08);
 	height: 100%;
 	align-items: center;
 	padding: 10px;
 	padding-left: 11%;
 	padding-right: 11%;
+	position: relative;
 
 	.name {
 		color: var(--default-title-color);
 		font-size: 16px;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		width: 100%;
+		text-align: center;
+		padding-right: 10px;
+	}
+
+	.tier {
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		top: 6px;
+		right: 6px;
+		width: 22px;
+		height: 22px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&.s {
+			color: #b5bcfb;
+		}
+
+		&.a {
+			color: #ce73b4;
+		}
+
+		&.b {
+			color: #a2ccb0;
+		}
+
+		&.c {
+			color: #ffb948;
+		}
+
+		&.d {
+			color: #ff4747;
+		}
 	}
 
 	.portrait {
@@ -63,6 +100,7 @@
 			color: #ce73b4;
 			margin-left: 5px;
 			font-weight: bold;
+			font-size: 10px;
 		}
 	}
 

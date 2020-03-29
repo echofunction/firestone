@@ -22,6 +22,6 @@ export class BgsHeroMiniComponent {
 
 	@Input() set hero(value: BgsHeroOverview) {
 		this._hero = value;
-		this.icon = `https://static.zerotoheroes.com/hearthstone/cardart/256x/${value.heroCardId}.jpg`;
+		this.icon = `https://static.zerotoheroes.com/hearthstone/fullcard/en/256/battlegrounds/${value.heroCardId}.png`;
 	}
 }

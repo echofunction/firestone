@@ -1,3 +1,5 @@
+import { BgsHeroTier } from '../stats/bgs-hero-stat';
+
 export class BgsHeroOverview {
 	readonly heroCardId: string;
 	readonly name: string;
@@ -5,6 +7,7 @@ export class BgsHeroOverview {
 	readonly globalAveragePosition: number;
 	readonly globalTop4: number;
 	readonly globalTop1: number;
+	readonly tier: BgsHeroTier;
 	readonly ownGamesPlayed: number;
 	readonly ownPopularity: number;
 	readonly ownAveragePosition: number;

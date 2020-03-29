@@ -4,6 +4,7 @@ import {
 	ChangeDetectorRef,
 	Component,
 	ElementRef,
+	HostListener,
 	Input,
 	ViewChild,
 	ViewRef,
@@ -97,6 +98,11 @@ export class BgsHeroWarbandStatsComponent implements AfterViewInit {
 	constructor(private readonly el: ElementRef, private readonly cdr: ChangeDetectorRef) {}
 
 	ngAfterViewInit() {
+		this.onResize();
+	}
+
+	@HostListener('window:resize')
+	onResize() {
 		const chartContainer = this.el.nativeElement.querySelector('.container');
 		const rect = chartContainer.getBoundingClientRect();
 		console.log('chartContainer', chartContainer, rect);
@@ -125,6 +131,7 @@ export class BgsHeroWarbandStatsComponent implements AfterViewInit {
 		gradient.addColorStop(0, 'rgba(206, 115, 180, 1)'); // #CE73B4
 		gradient.addColorStop(0.4, 'rgba(206, 115, 180, 0.4)');
 		gradient.addColorStop(1, 'rgba(206, 115, 180, 0)');
+		console.log('returning gradient', gradient);
 		return gradient;
 	}
 }

@@ -46,6 +46,7 @@ export class BgsHeroSelectionParser implements EventParser {
 				globalPopularity: stat.popularity,
 				globalTop4: stat.top4 || 0,
 				globalTop1: stat.top1 || 0,
+				tier: stat.tier,
 				ownAveragePosition: stat.playerAveragePosition,
 				ownPopularity: stat.playerPopularity,
 				ownGamesPlayed: stat.playerGamesPlayed,

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BgsHeroOverview } from '../../../models/battlegrounds/hero-selection/bgs-hero-overview';
+import { BgsHeroTier } from '../../../models/battlegrounds/stats/bgs-hero-stat';
 
 declare var amplitude: any;
 
@@ -12,6 +13,7 @@ declare var amplitude: any;
 	template: `
 		<div class="hero-overview">
 			<div class="name">{{ _hero.name }}</div>
+			<div class="tier {{ tier?.toLowerCase() }}">{{ tier }}</div>
 			<img [src]="icon" class="portrait" />
 			<div class="stats">
 				<div class="title">Stats</div>
@@ -21,7 +23,7 @@ declare var amplitude: any;
 					</div>
 					<div
 						class="global-value"
-						helpTooltip="Value for the whole community for all the games since the last patch"
+						helpTooltip="Value for the top 10% of players since the last patch (6000+ MMR)"
 					>
 						{{ _hero.globalAveragePosition.toFixed(1) }}
 					</div>
@@ -35,7 +37,7 @@ declare var amplitude: any;
 					</div>
 					<div
 						class="global-value"
-						helpTooltip="Value for the whole community for all the games since the last patch"
+						helpTooltip="Value for the top 10% of players since the last patch (6000+ MMR)"
 					>
 						{{ _hero.globalTop4.toFixed(0) }}%
 					</div>
@@ -49,7 +51,7 @@ declare var amplitude: any;
 					</div>
 					<div
 						class="global-value"
-						helpTooltip="Value for the whole community for all the games since the last patch"
+						helpTooltip="Value for the top 10% of players since the last patch (6000+ MMR)"
 					>
 						{{ _hero.globalTop1.toFixed(0) }}%
 					</div>
@@ -63,7 +65,7 @@ declare var amplitude: any;
 					</div>
 					<div
 						class="global-value"
-						helpTooltip="Value for the whole community for all the games since the last patch"
+						helpTooltip="Value for the top 10% of players since the last patch (6000+ MMR)"
 					>
 						{{ _hero.globalPopularity.toFixed(0) }}%
 					</div>
@@ -101,6 +103,7 @@ declare var amplitude: any;
 export class BgsHeroOverviewComponent {
 	_hero: BgsHeroOverview;
 	icon: string;
+	tier: BgsHeroTier;
 	tribes: readonly { tribe: string; percent: string }[];
 	warbandStats: readonly { turn: number; totalStats: number }[];
 
@@ -113,6 +116,7 @@ export class BgsHeroOverviewComponent {
 			.map(stat => ({ tribe: stat.tribe, percent: stat.percent.toFixed(1) }))
 			.slice(0, 5);
 		this.warbandStats = value.warbandStats;
+		this.tier = value.tier;
 	}
 
 	getIcon(tribe: string): string {

@@ -5,6 +5,7 @@ export class BgsHeroStat {
 	readonly averagePosition: number;
 	readonly top4: number;
 	readonly top1: number;
+	readonly tier: BgsHeroTier;
 	readonly playerPopularity: number;
 	readonly playerAveragePosition: number;
 	readonly playerGamesPlayed: number;
@@ -17,3 +18,5 @@ export class BgsHeroStat {
 		return Object.assign(new BgsHeroStat(), base);
 	}
 }
+
+export type BgsHeroTier = 'S' | 'A' | 'B' | 'C' | 'D';
