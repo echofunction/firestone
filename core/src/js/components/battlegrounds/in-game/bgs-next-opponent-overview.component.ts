@@ -13,7 +13,7 @@ import { BgsNextOpponentOverviewPanel } from '../../../models/battlegrounds/in-g
 import { OpponentFaceOff } from './opponent-face-off';
 import { OpponentInfo } from './opponent-info';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'bgs-next-opponent-overview',

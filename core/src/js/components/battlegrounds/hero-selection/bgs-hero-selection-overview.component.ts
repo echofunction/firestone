@@ -4,7 +4,7 @@ import { BgsHeroSelectionOverview } from '../../../models/battlegrounds/hero-sel
 import { BgsHeroTier } from '../../../models/battlegrounds/stats/bgs-hero-stat';
 import { groupByFunction } from '../../../services/utils';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'bgs-hero-selection-overview',
@@ -36,6 +36,7 @@ export class BgsHeroSelectionOverviewComponent {
 	_panel: BgsHeroSelectionOverview;
 
 	// TODO: tooltip on heroes
+	// Mouse over on graph
 	@Input() set panel(value: BgsHeroSelectionOverview) {
 		this._panel = value;
 		const allOverviews = this._panel.heroOverview.filter(overview => overview.heroCardId !== 'average');

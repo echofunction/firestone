@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BgsHeroOverview } from '../../../models/battlegrounds/hero-selection/bgs-hero-overview';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'bgs-hero-mini',

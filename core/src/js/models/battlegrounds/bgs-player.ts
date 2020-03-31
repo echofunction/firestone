@@ -1,6 +1,6 @@
 import { GameTag } from '@firestone-hs/reference-data';
 import { Entity } from '@firestone-hs/replay-parser';
-import { BoardEntity } from './board-entity';
+import { BoardEntity } from '@firestone-hs/simulate-bgs-battle/dist/board-entity';
 import { BgsBoard } from './in-game/bgs-board';
 import { BgsComposition } from './in-game/bgs-composition';
 import { BgsTavernUpgrade } from './in-game/bgs-tavern-upgrade';
@@ -37,14 +37,14 @@ export class BgsPlayer {
 		return this.boardHistory.length === 0 ? undefined : this.boardHistory[this.boardHistory.length - 1].turn;
 	}
 
-	public buildBgsEntities(logEntities: readonly any[]): readonly BoardEntity[] {
+	public buildBgsEntities(logEntities: readonly any[]): BoardEntity[] {
 		return logEntities.map(entity => this.buildBgsEntity(entity));
 	}
 
 	private buildBgsEntity(logEntity): BoardEntity {
 		return {
 			cardId: logEntity.CardId,
-			attack: logEntity.Tags.find(tag => tag.Name === GameTag.ATK)?.Value,
+			attack: logEntity.Tags.find(tag => tag.Name === GameTag.ATK)?.Value || 0,
 			divineShield: (logEntity.Tags.find(tag => tag.Name === GameTag.DIVINE_SHIELD) || {})?.Value === 1,
 			enchantments: this.buildEnchantments(logEntity.Enchantments),
 			entityId: logEntity.Entity,
@@ -60,7 +60,7 @@ export class BgsPlayer {
 
 	private buildEnchantments(
 		enchantments: { EntityId: number; CardId: string }[],
-	): readonly { cardId: string; originEntityId: number }[] {
+	): { cardId: string; originEntityId: number }[] {
 		return enchantments.map(enchant => ({
 			originEntityId: enchant.EntityId,
 			cardId: enchant.CardId,

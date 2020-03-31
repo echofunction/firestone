@@ -14,7 +14,7 @@ import { BgsPostMatchStats } from '../../../models/battlegrounds/post-match/bgs-
 import { BgsPostMatchStatsPanel } from '../../../models/battlegrounds/post-match/bgs-post-match-stats-panel';
 import { ChartUtils } from './chart-utils';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'bgs-chart-warband-stats',

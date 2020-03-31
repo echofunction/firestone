@@ -11,7 +11,7 @@ import { BgsStageChangeEvent } from '../../services/battlegrounds/store/events/b
 import { BattlegroundsStoreEvent } from '../../services/battlegrounds/store/events/_battlegrounds-store-event';
 import { OverwolfService } from '../../services/overwolf.service';
 
-declare var amplitude;
+declare let amplitude;
 
 @Component({
 	selector: 'menu-selection-bgs',

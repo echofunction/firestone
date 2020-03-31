@@ -1,11 +1,11 @@
 import { GameTag } from '@firestone-hs/reference-data';
 import { Entity } from '@firestone-hs/replay-parser';
+import { BgsBoardInfo } from '@firestone-hs/simulate-bgs-battle/dist/bgs-board-info';
+import { BoardEntity } from '@firestone-hs/simulate-bgs-battle/dist/board-entity';
 import { Map } from 'immutable';
 import { BattlegroundsState } from '../../../../models/battlegrounds/battlegrounds-state';
-import { BgsBoardInfo } from '../../../../models/battlegrounds/bgs-board-info';
 import { BgsGame } from '../../../../models/battlegrounds/bgs-game';
 import { BgsPlayer } from '../../../../models/battlegrounds/bgs-player';
-import { BoardEntity } from '../../../../models/battlegrounds/board-entity';
 import { BgsBoard } from '../../../../models/battlegrounds/in-game/bgs-board';
 import { BgsBattleSimulationService } from '../../bgs-battle-simulation.service';
 import { BgsPlayerBoardEvent } from '../events/bgs-player-board-event';
@@ -39,7 +39,7 @@ export class BgsPlayerBoardParser implements EventParser {
 			event.board,
 			newPlayer,
 		);
-		const bgsBoard: readonly BoardEntity[] = newPlayer.buildBgsEntities(event.board);
+		const bgsBoard: BoardEntity[] = newPlayer.buildBgsEntities(event.board);
 		let tavernTier = event.hero?.Tags?.find(tag => tag.Name === GameTag.PLAYER_TECH_LEVEL)?.Value;
 		if (!tavernTier) {
 			console.log('[bgs-simulation] no tavern tier', event);

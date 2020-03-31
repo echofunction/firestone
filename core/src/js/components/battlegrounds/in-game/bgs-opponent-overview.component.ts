@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewRef } from '@angular/core';
 import { OpponentInfo } from './opponent-info';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'bgs-opponent-overview',

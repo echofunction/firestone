@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Replay } from '@firestone-hs/hs-replay-xml-parser';
 import { BlockType, CardType, GameTag, Race, Step, Zone } from '@firestone-hs/reference-data';
 import { Element } from 'elementtree';

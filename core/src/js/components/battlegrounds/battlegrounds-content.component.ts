@@ -13,7 +13,7 @@ import { BgsStage } from '../../models/battlegrounds/bgs-stage';
 import { BattlegroundsStoreEvent } from '../../services/battlegrounds/store/events/_battlegrounds-store-event';
 import { OverwolfService } from '../../services/overwolf.service';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'battlegrounds-content',

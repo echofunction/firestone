@@ -2,7 +2,7 @@ import { BgsBattleSimulationResult } from '../../../../models/battlegrounds/bgs-
 import { BattlegroundsStoreEvent } from './_battlegrounds-store-event';
 
 export class BattlegroundsBattleSimulationEvent extends BattlegroundsStoreEvent {
-	constructor(readonly result: BgsBattleSimulationResult) {
+	constructor(public readonly result: BgsBattleSimulationResult) {
 		super('BattlegroundsBattleSimulationEvent');
 	}
 }

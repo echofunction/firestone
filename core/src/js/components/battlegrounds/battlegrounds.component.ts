@@ -14,7 +14,7 @@ import { BattlegroundsState } from '../../models/battlegrounds/battlegrounds-sta
 import { DebugService } from '../../services/debug.service';
 import { OverwolfService } from '../../services/overwolf.service';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'battlegrounds',

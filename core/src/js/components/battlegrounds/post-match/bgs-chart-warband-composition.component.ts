@@ -12,7 +12,7 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color } from 'ng2-charts';
 import { BgsPostMatchStats } from '../../../models/battlegrounds/post-match/bgs-post-match-stats';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'bgs-chart-warband-composition',

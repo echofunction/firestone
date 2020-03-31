@@ -1,6 +1,6 @@
-import { BgsBattleInfo } from './bgs-battle-info';
+import { BgsBattleInfo } from '@firestone-hs/simulate-bgs-battle/dist/bgs-battle-info';
+import { BgsBoardInfo } from '@firestone-hs/simulate-bgs-battle/dist/bgs-board-info';
 import { BgsBattleSimulationResult } from './bgs-battle-simulation-result';
-import { BgsBoardInfo } from './bgs-board-info';
 import { BgsFaceOff } from './bgs-face-off';
 import { BgsPlayer } from './bgs-player';
 

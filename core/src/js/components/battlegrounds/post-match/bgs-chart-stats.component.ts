@@ -3,7 +3,7 @@ import { BgsTavernUpgrade } from '../../../models/battlegrounds/in-game/bgs-tave
 import { BgsTriple } from '../../../models/battlegrounds/in-game/bgs-triple';
 import { BgsPostMatchStats } from '../../../models/battlegrounds/post-match/bgs-post-match-stats';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'bgs-chart-stats',

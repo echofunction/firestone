@@ -15,7 +15,7 @@ import { BgsPostMatchStatsFilterChangeEvent } from '../../../services/battlegrou
 import { BattlegroundsStoreEvent } from '../../../services/battlegrounds/store/events/_battlegrounds-store-event';
 import { OverwolfService } from '../../../services/overwolf.service';
 
-declare var amplitude: any;
+declare let amplitude: any;
 
 @Component({
 	selector: 'bgs-post-match-stats',
@@ -60,7 +60,7 @@ export class BgsPostMatchStatsComponent implements AfterViewInit {
 		{ label: 'Stats', value: 'stats' },
 	];
 	activeFilter: BgsStatsFilterId;
-	placeholder: string = 'Select stats';
+	placeholder = 'Select stats';
 	filterChangeFunction: (option: IOption) => void;
 
 	@Input() set panel(value: BgsPostMatchStatsPanel) {

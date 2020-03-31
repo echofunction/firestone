@@ -1,3 +1,3 @@
 export abstract class BattlegroundsStoreEvent {
-	constructor(readonly type: string) {}
+	constructor(public readonly type: string) {}
 }
