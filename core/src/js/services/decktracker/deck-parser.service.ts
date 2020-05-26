@@ -155,7 +155,7 @@ export class DeckParserService {
 		const card = this.allCards.getCardFromDbfId(pair[0]);
 		const result: DeckCard[] = [];
 		if (!card) {
-			console.error('Could not build deck card', pair);
+			// console.error('Could not build deck card', pair);
 			return result;
 		}
 		// Don't include passive buffs in the decklist
