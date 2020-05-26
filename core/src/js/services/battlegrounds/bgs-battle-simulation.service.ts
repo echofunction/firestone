@@ -24,6 +24,7 @@ export class BgsBattleSimulationService {
 	}
 
 	private async startBgsBattleSimulation(battleInfo: BgsBattleInfo) {
+		return;
 		console.log('[bgs-simulation] battle simulation request sent');
 		const result: BgsBattleSimulationResult = (await this.http
 			.post(BGS_BATTLE_SIMULATION_ENDPOINT, battleInfo)
